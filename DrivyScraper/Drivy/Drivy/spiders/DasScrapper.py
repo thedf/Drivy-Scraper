@@ -75,7 +75,7 @@ class MySpider(scrapy.Spider):
         
         rating = response.xpath('//*[@id="js_car_id"]/div[2]/div[3]/div/div/div/div[1]/div[1]/div/div/button/meta[1]/@content').get() 
         if (rating == None):
-            rating = float(response.xpath('//*[@id="js_car_id"]/div[2]/div[3]/div/div/div/button/meta[1]/@content').get())
+            rating = response.xpath('//*[@id="js_car_id"]/div[2]/div[3]/div/div/div/button/meta[1]/@content').get()
         else :
             rating = float(rating)
         yield {
