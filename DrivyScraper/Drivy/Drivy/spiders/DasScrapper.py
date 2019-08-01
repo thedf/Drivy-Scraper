@@ -1,6 +1,6 @@
 import scrapy
 from scrapy_splash import SplashRequest
-
+import time
 class MySpider(scrapy.Spider):
     name = "DasScrapper"
     lien="https://www.drivy.com/search?address=Gare+de+Massy+-+Palaiseau&address_source=poi&poi_id=685&latitude=48.7254&longitude=2.2596&city_display_name=&start_date=2019-08-03&start_time=09%3A00&end_date=2019-08-04&end_time=09%3A00&country_scope=FR&car_sharing=true&user_interacted_with_car_sharing=false"
@@ -21,6 +21,7 @@ class MySpider(scrapy.Spider):
         result=""
         if (thisPage != numPages):
             argumentForNextPage=self.lien+'&page='+str(thisPage+1)
+            time.sleep(20)
             yield SplashRequest(url=argumentForNextPage, callback=self.parse,args={"wait":3})
         for pick in picks :
             result="https://www.drivy.com/"+pick.css("a").attrib['href']
