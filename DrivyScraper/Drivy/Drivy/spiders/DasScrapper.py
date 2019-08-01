@@ -1,4 +1,4 @@
-from scrapy_spiders import Spider
+import scrapy
 from scrapy_splash import SplashRequest
 
 class MySpider(scrapy.Spider):
