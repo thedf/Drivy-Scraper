@@ -10,7 +10,8 @@ class MySpider(scrapy.Spider):
         for url in self.start_urls:
             yield SplashRequest(url=url, callback=self.parse,args={"wait":3})
     def parse2(self, response):
-        yield {'halo':'yo'}
+        price = response.xpath('//*[@id="request_form"]/div[2]/div/div[1]/div[2]/span/text()').get()
+        yield {'price' : price}
     def parse(self, response):
         content = response.xpath('//*[@id="js_picks"]/div[6]/div/div[2]/div[3]/div/div[2]/div[2]')
         pages=response.xpath('//*[@id="js_search_paginator"]/div/text()').get()
@@ -22,7 +23,8 @@ class MySpider(scrapy.Spider):
         for pick in picks :
             result="https://www.drivy.com"+pick.css("a").attrib['href']
             time.sleep(2)
-            yield SplashRequest(url=result, callback=self.parse2,args={"wait":3})
+            yield scrapy.Request(result, callback=self.parse2)
+            #yield SplashRequest(url=result, callback=self.parse2,args={"wait":3})
         if (thisPage != numPages):
             argumentForNextPage=self.lien+'&page='+str(thisPage+1)
             time.sleep(60)
