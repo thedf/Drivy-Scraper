@@ -2,39 +2,11 @@ import scrapy
 from scrapy_splash import SplashRequest
 from urllib.request import *
 from parse import *
-import random
 import time
 class MySpider(scrapy.Spider):
     name = "DasScrapper"
     lien="https://www.drivy.com/search?address=Gare+de+Massy+-+Palaiseau&address_source=poi&poi_id=685&latitude=48.7254&longitude=2.2596&city_display_name=&start_date=2019-08-03&start_time=09%3A00&end_date=2019-08-04&end_time=09%3A00&country_scope=FR&car_sharing=true&user_interacted_with_car_sharing=false"
     start_urls = [lien]
-    """
-    filedata =urlopen('http://spys.me/proxy.txt')
-    for i in range(4):
-        filedata.readline()
-        
-    text=filedata.readline()
-    while(text != b'\r\n'):
-        ip,port,Allow=parse("b'{}:{} {}",str(text))
-        if ("S" in Allow and "+" in Allow):
-            ports.append(port.replace(" ", ""))
-            ips.append(ip.replace(" ", ""))
-        text=filedata.readline()
-    """
-    def __init__(self, *args, **kwargs):
-        super(MySpider, self).__init__(*args, **kwargs)
-        self.proxy_pool = []
-        filedata =urlopen('http://spys.me/proxy.txt')
-        for i in range(10):
-            filedata.readline()
-
-        text=filedata.readline()
-        while(text != b'\r\n'):
-            proxy,Allow=parse("b'{} {}",str(text))
-            if ("S" in Allow and "+" in Allow):
-                self.proxy_pool.append(proxy.replace(" ", ""))
-            text=filedata.readline()
-
     def start_requests(self):
         """
         This function starts the first request and the first action to do when the script is called.
@@ -166,12 +138,11 @@ class MySpider(scrapy.Spider):
         result=""
         for pick in picks :
             result="https://www.drivy.com"+pick.css("a").attrib['href']
-            req = scrapy.Request(result, callback=self.parse2)
-            if self.proxy_pool:
-                req.meta['proxy'] = random.choice(self.proxy_pool)
-            yield req
+            time.sleep(2)
+            yield scrapy.Request(result, callback=self.parse2)
             #yield SplashRequest(url=result, callback=self.parse2,args={"wait":3})
         if (thisPage != numPages):
             argumentForNextPage=self.lien+'&page='+str(thisPage+1)
+            time.sleep(60)
             yield SplashRequest(url=argumentForNextPage, callback=self.parse,args={"wait":3})
 
