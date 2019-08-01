@@ -24,4 +24,4 @@ class MySpider(scrapy.Spider):
             yield SplashRequest(url=argumentForNextPage, callback=self.parse,args={"wait":3})
         for pick in picks :
             result="https://www.drivy.com/"+pick.css("a").attrib['href']
-            scrapy.Request(result, callback=self.parse2)
+            yield scrapy.Request(result, callback=self.parse2)
