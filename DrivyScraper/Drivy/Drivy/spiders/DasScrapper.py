@@ -2,6 +2,7 @@ import scrapy
 from scrapy_splash import SplashRequest
 from urllib.request import *
 from parse import *
+import random
 import time
 class MySpider(scrapy.Spider):
     name = "DasScrapper"
