@@ -69,7 +69,7 @@ class MySpider(scrapy.Spider):
         
         evaluationNumber = response.xpath('//*[@id="js_car_id"]/div[2]/div[3]/div/div/div/div[1]/div[1]/div/div/button/span/text()').get() 
         if (evaluationNumber == None):
-            evaluationNumber = int(response.xpath('//*[@id="js_car_id"]/div[2]/div[3]/div/div/div/button/span/text()').get())
+            evaluationNumber = response.xpath('//*[@id="js_car_id"]/div[2]/div[3]/div/div/div/button/span/text()').get()
         else :
             evaluationNumber = int(evaluationNumber)
         
