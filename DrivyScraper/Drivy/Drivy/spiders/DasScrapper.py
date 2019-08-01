@@ -47,6 +47,10 @@ class MySpider(scrapy.Spider):
 
         priaviMinimum = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[5]/div/div[2]/div[1]/div/div/div/text()').get() 
         if (priaviMinimum == None):
+             priaviMinimum = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div/text()').get() 
+        if (priaviMinimum == None):
+            priaviMinimum = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[3]/div/div[2]/div/div[2]/div/div/text()').get()
+        if (priaviMinimum == None):  
             priaviMinimum = "rien"
 
         motorType = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[5]/div[1]/div/div/div[2]/div[1]/div[1]/p/text()').get()
