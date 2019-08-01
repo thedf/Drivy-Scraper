@@ -9,9 +9,26 @@ class MySpider(scrapy.Spider):
     def start_requests(self):
         for url in self.start_urls:
             yield SplashRequest(url=url, callback=self.parse,args={"wait":3})
-    def parse2(self, response):
-        price = response.xpath('//*[@id="request_form"]/div[2]/div/div[1]/div[2]/span/text()').get()
-        yield {'price' : price}
+    def parse2(self, response):        
+        yield {'price' : response.xpath('//*[@id="request_form"]/div[2]/div/div[1]/div[2]/span/text()').get(),
+                "nom_voiture" : response.xpath('//*[@id="js_car_id"]/div[2]/div[3]/div/div/div/div[1]/div[1]/h1/text()').get(),
+                'tarif' : response.xpath('//*[@id="request_form"]/div[2]/div/div[1]/div[2]/span/text()').get(),
+                'drivy_open	': response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[1]/div/div/div[2]/div[1]/text()').get(),
+                'reservation_instantanee	': response.xpath('//*[@id="js_car_id"]/div[2]/div[3]/div/div/div/div[2]/div/div[1]/div/text()').get(),
+                'nombre_place':  response.xpath('//*[@id="js_car_id"]/div[2]/div[3]/div/div/div/div[1]/div[1]/div/div/span/text()[3]').get(),
+                'annees_voiture':  response.xpath('//*[@id="js_car_id"]/div[2]/div[3]/div/div/div/div[1]/div[1]/div/div/span/text()[2]').get(),
+                'nombre_eval':  response.xpath('//*[@id="js_car_id"]/div[2]/div[3]/div/div/div/div[1]/div[1]/div/div/button/span/text()').get(),
+                'note': 	 response.xpath('//*[@id="js_car_id"]/div[2]/div[3]/div/div/div/div[1]/div[1]/div/div/button/meta[1]/content()').get(),
+                'url_annonce':  response.url,
+                'adresse_proximitee':  response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[2]/div/div/div[1]/div[2]/div[2]/div[2]/div/text()').get(),
+                'preavi_minimum': 	 response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[5]/div/div[2]/div[1]/div/div/div/text()').get(),
+                'moteur':  response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[5]/div[1]/div/div/div[2]/div[1]/div[1]/p/text()').get(),
+                'compteur':  response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[5]/div[1]/div/div/div[2]/div[1]/div[2]/p/text()').get(),
+                'boite': 	 response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[5]/div[1]/div/div/div[2]/div[2]/div/p/text()').get(),
+                'nom_propriétaire':  response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[2]/div/span/div[2]/div[1]/span/span/text()').get(),
+                'nombre_eval_proprio':  response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[3]/div/span/div[2]/div[2]/div/div[2]/div[1]/text()').get(),
+                'note_proprio': 	 response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[3]/div/span/div[2]/div[2]/div/div[1]/text()').get(),
+        }
     def parse(self, response):
         content = response.xpath('//*[@id="js_picks"]/div[6]/div/div[2]/div[3]/div/div[2]/div[2]')
         pages=response.xpath('//*[@id="js_search_paginator"]/div/text()').get()
