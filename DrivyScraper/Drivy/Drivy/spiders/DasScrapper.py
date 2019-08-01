@@ -1,5 +1,6 @@
 import scrapy
 from scrapy_splash import SplashRequest
+
 class MySpider(scrapy.Spider):
     name = "DasScrapper"
 
@@ -12,10 +13,7 @@ class MySpider(scrapy.Spider):
     def parse(self, response):
         content = response.xpath('//*[@id="js_picks"]/div[6]/div/div[2]/div[3]/div/div[2]/div[2]')
         picks=content.css("div.pick_result")
-        result=dict
-        i=0
+        result=""
         for pick in picks :
-            i+=1
-            result.update( {str(i) : pick.css("a").attrib['href'] })
-        print(result)
-        yield {'halo': result }
+            result=pick.css("a").attrib['href']
+            yield {'link': ''.join(result)}
