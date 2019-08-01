@@ -8,7 +8,7 @@ class MySpider(scrapy.Spider):
 
     def start_requests(self):
         for url in self.start_urls:
-            yield SplashRequest(url=url, callback=self.parse,args={"wait":3})
+            yield SplashRequest(url=url, callback=self.parse,args={'timeout': 3600,"wait":3})
     def parse2(self, response):
         yield {'halo':'yo'}
     def parse(self, response):
@@ -21,9 +21,10 @@ class MySpider(scrapy.Spider):
         result=""
         for pick in picks :
             result="https://www.drivy.com"+pick.css("a").attrib['href']
-            yield SplashRequest(url=result, callback=self.parse2,args={"wait":3})
+            time.sleep(2)
+            yield SplashRequest(url=result, callback=self.parse2,args={'timeout': 3600,"wait":3})
         if (thisPage != numPages):
             argumentForNextPage=self.lien+'&page='+str(thisPage+1)
             time.sleep(60)
-            yield SplashRequest(url=argumentForNextPage, callback=self.parse,args={"wait":3})
+            yield SplashRequest(url=argumentForNextPage, callback=self.parse,args={'timeout': 3600,"wait":3})
 
