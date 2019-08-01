@@ -15,5 +15,5 @@ class MySpider(scrapy.Spider):
         picks=content.css("div.pick_result")
         result=""
         for pick in picks :
-            result+=pick.css("a").get()
+            result+=pick.css("a").attrib['href']+"\n"
         yield {'article': ''.join(result)}
