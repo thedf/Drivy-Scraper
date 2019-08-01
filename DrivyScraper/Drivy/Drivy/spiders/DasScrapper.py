@@ -13,7 +13,7 @@ class MySpider(scrapy.Spider):
         yield {'halo':'yo'}
     def parse(self, response):
         content = response.xpath('//*[@id="js_picks"]/div[6]/div/div[2]/div[3]/div/div[2]/div[2]')
-        pages=response.xpath('//*[@id="js_search_paginator"]/div::text').get()
+        pages=response.xpath('//*[@id="js_search_paginator"]/div/text()').get()
         numPages=int(pages.split('sur')[1])
         picks=content.css("div.pick_result")
         result=""
