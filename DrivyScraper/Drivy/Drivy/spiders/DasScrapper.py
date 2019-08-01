@@ -14,9 +14,10 @@ class MySpider(scrapy.Spider):
     def parse(self, response):
         content = response.xpath('//*[@id="js_picks"]/div[6]/div/div[2]/div[3]/div/div[2]/div[2]')
         pages=response.xpath('//*[@id="js_search_paginator"]/div/text()').get()
-        yield {"page":pages}
-        """
         numPages=int(pages.split('sur')[1])
+        yield {"page":numPages}
+        """
+        
         picks=content.css("div.pick_result")
         result=""
         for pick in picks :
