@@ -16,4 +16,4 @@ class MySpider(scrapy.Spider):
         result=""
         for pick in picks :
             result+=pick.css("a").get()
-        yield {'article': ''.join(content)}
+        yield {'article': ''.join(result)}
