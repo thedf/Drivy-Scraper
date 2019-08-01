@@ -19,7 +19,7 @@ class MySpider(scrapy.Spider):
         result=""
         for i in range(1,numPages):
             argumentForNextPage=self.lien+'&page='+str(i+1)
-            yield scrapy.Request(argumentForNextPage, callback=self.parse)
+            yield SplashRequest(url=argumentForNextPage, callback=self.parse,args={"wait":3})
         for pick in picks :
             result="https://www.drivy.com/"+pick.css("a").attrib['href']
             scrapy.Request(result, callback=self.parse2)
