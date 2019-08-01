@@ -18,4 +18,5 @@ class MySpider(scrapy.Spider):
         for pick in picks :
             i+=1
             result.update( {str(i) : pick.css("a").attrib['href'] })
+        print(result)
         yield json.dumps(result)
