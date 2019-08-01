@@ -166,7 +166,6 @@ class MySpider(scrapy.Spider):
         result=""
         for pick in picks :
             result="https://www.drivy.com"+pick.css("a").attrib['href']
-            time.sleep(2)
             req = scrapy.Request(result, callback=self.parse2)
             if self.proxy_pool:
                 req.meta['proxy'] = random.choice(self.proxy_pool)
