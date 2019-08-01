@@ -8,7 +8,7 @@ class MySpider(scrapy.Spider):
 
     def start_requests(self):
         for url in self.start_urls:
-            yield SplashRequest(url=url, callback=self.parse,args={'timeout': 3600,"wait":3})
+            yield SplashRequest(url=url, callback=self.parse,args={'timeout': 360,"wait":3})
     def parse2(self, response):
         yield {'halo':'yo'}
     def parse(self, response):
