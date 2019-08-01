@@ -1,10 +1,15 @@
 import scrapy
 from scrapy_splash import SplashRequest
+import pymongo
 import time
 class MySpider(scrapy.Spider):
     name = "DasScrapper"
     lien="https://www.drivy.com/search?address=Gare+de+Massy+-+Palaiseau&address_source=poi&poi_id=685&latitude=48.7254&longitude=2.2596&city_display_name=&start_date=2019-08-03&start_time=09%3A00&end_date=2019-08-04&end_time=09%3A00&country_scope=FR&car_sharing=true&user_interacted_with_car_sharing=false"
     start_urls = [lien]
+    myclient = pymongo.MongoClient("mongodb://root:admin123@localhost:27017/")
+    mydb = myclient["admin"]
+
+    mycol = mydb["new_collection"]
     def start_requests(self):
         """
         This function starts the first request and the first action to do when the script is called.
@@ -107,7 +112,7 @@ class MySpider(scrapy.Spider):
                 rating = float(rating)
         else :
             rating = float(rating)
-        yield {
+        mydict = {
                 "nom_voiture" : carName ,
                 'tarif' : price ,
                 'drivy_open	': isDrivey,
@@ -126,6 +131,8 @@ class MySpider(scrapy.Spider):
                 'nombre_eval_proprio': evaluationNumberP ,
                 'note_proprio': response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[3]/div/span/div[2]/div[2]/div/div[1]/text()').get() ,
         }
+        x = self.mycol.insert_one(mydict)
+        yield {"Success" : True }
     def parse(self, response):
         content = response.xpath('//*[@id="js_picks"]/div[6]/div/div[2]/div[3]/div/div[2]/div[2]')
         pages=response.xpath('//*[@id="js_search_paginator"]/div/text()').get()
