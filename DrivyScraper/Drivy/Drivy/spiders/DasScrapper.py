@@ -15,15 +15,11 @@ class MySpider(scrapy.Spider):
         content = response.xpath('//*[@id="js_picks"]/div[6]/div/div[2]/div[3]/div/div[2]/div[2]')
         pages=response.xpath('//*[@id="js_search_paginator"]/div/text()').get()
         numPages=int(pages.split('sur')[1])
-        yield {"page":numPages}
-        """
-        
         picks=content.css("div.pick_result")
         result=""
-        for pick in picks :
-            result="https://www.drivy.com/"+pick.css("a").attrib['href']
-            scrapy.Request(result, callback=self.parse2)
         for i in range(1,numPages):
             argumentForNextPage=self.lien+'&page='+str(i+1)
             yield scrapy.Request(argumentForNextPage, callback=self.parse)
-        """
+        for pick in picks :
+            result="https://www.drivy.com/"+pick.css("a").attrib['href']
+            scrapy.Request(result, callback=self.parse2)
