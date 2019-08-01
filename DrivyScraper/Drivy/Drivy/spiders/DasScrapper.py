@@ -1,6 +1,5 @@
 import scrapy
 from scrapy_splash import SplashRequest
-import json
 class MySpider(scrapy.Spider):
     name = "DasScrapper"
 
