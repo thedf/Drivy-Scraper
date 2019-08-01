@@ -11,7 +11,5 @@ class MySpider(scrapy.Spider):
             yield SplashRequest(url=url, callback=self.parse,args={"wait":3})
 
     def parse(self, response):
-        items=DrivyItem()
-        for q in response.css(".js_picks_list_view col-xs-12 js_search_view.picks_results.pick_result"):
-            items["Links"] = q.css(".car_card_revamp js_picks_car_card::href").extract_first()
-            yield quote
+        content = response.xpath('//*[@id="js_picks"]/div[6]/div/div[2]/div[3]/div/div[2]')
+        yield {'article': ''.join(content)}
