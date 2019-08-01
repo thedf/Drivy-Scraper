@@ -14,11 +14,13 @@ class MySpider(scrapy.Spider):
     def parse(self, response):
         content = response.xpath('//*[@id="js_picks"]/div[6]/div/div[2]/div[3]/div/div[2]/div[2]')
         pages=response.xpath('//*[@id="js_search_paginator"]/div/text()').get()
-        numPages=int(pages.split('sur')[1])
+        pageSplit=pages.split(' ')
+        numPages=int(pageSplit[3])
+        thisPage=int(pageSplit[1])
         picks=content.css("div.pick_result")
         result=""
-        for i in range(1,numPages):
-            argumentForNextPage=self.lien+'&page='+str(i+1)
+        if (thisPage != numPages):
+            argumentForNextPage=self.lien+'&page='+str(thisPage+1)
             yield SplashRequest(url=argumentForNextPage, callback=self.parse,args={"wait":3})
         for pick in picks :
             result="https://www.drivy.com/"+pick.css("a").attrib['href']
