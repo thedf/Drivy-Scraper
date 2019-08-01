@@ -24,7 +24,7 @@ class MySpider(scrapy.Spider):
         super(MySpider, self).__init__(*args, **kwargs)
         self.proxy_pool = []
         filedata =urlopen('http://spys.me/proxy.txt')
-        for i in range(4):
+        for i in range(10):
             filedata.readline()
 
         text=filedata.readline()
