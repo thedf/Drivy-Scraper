@@ -18,7 +18,7 @@ class MySpider(scrapy.Spider):
                 'nombre_place':  response.xpath('//*[@id="js_car_id"]/div[2]/div[3]/div/div/div/div[1]/div[1]/div/div/span/text()[3]').get(),
                 'annees_voiture':  response.xpath('//*[@id="js_car_id"]/div[2]/div[3]/div/div/div/div[1]/div[1]/div/div/span/text()[2]').get(),
                 'nombre_eval':  response.xpath('//*[@id="js_car_id"]/div[2]/div[3]/div/div/div/div[1]/div[1]/div/div/button/span/text()').get(),
-                'note': 	 response.xpath('//*[@id="js_car_id"]/div[2]/div[3]/div/div/div/div[1]/div[1]/div/div/button/meta[1]/content()').get(),
+                'note': 	 response.xpath('//*[@id="js_car_id"]/div[2]/div[3]/div/div/div/div[1]/div[1]/div/div/button/meta[1]/@content').get(),
                 'url_annonce':  response.url,
                 'adresse_proximitee':  response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[2]/div/div/div[1]/div[2]/div[2]/div[2]/div/text()').get(),
                 'preavi_minimum': 	 response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[5]/div/div[2]/div[1]/div/div/div/text()').get(),
