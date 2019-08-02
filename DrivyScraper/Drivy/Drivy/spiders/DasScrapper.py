@@ -15,8 +15,6 @@ class MySpider(scrapy.Spider):
     def __init__(self, **kw):
         super(MySpider, self).__init__(**kw)
         url = kw.get('url') or kw.get('domain')
-        if not url.startswith('http://') and not url.startswith('https://'):
-            url = 'http://%s/' % url
         self.start_urls = url
 
     def start_requests(self):
