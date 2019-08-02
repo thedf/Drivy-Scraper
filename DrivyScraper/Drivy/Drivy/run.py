@@ -1,7 +1,6 @@
 from twisted.internet import reactor
 from scrapy.crawler import Crawler
 from scrapy.settings import Settings
-from scrapy import log
 from spiders.DasScrapper import MySpider
 import sys, getopt
 
@@ -27,7 +26,6 @@ if __name__ == "__main__":
     crawler.configure()
     crawler.crawl(spider)
     crawler.start()
-    log.start()
     reactor.run() # the script will block here
 
 
