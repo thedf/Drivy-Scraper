@@ -1,5 +1,5 @@
 from twisted.internet import reactor
-from scrapy.crawler import Crawler
+from scrapy.crawler import CrawlerProcess
 from scrapy.settings import Settings
 from spiders.DasScrapper import MySpider
 from scrapy.utils.project import get_project_settings
