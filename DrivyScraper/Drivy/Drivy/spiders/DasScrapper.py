@@ -34,8 +34,8 @@ class MySpider(scrapy.Spider):
         for pick in picks :
             result="https://www.drivy.com"+pick.css("a").attrib['href']
             time.sleep(2)
-            yield scrapy.Request(result, callback=self.parse2)
-            #yield SplashRequest(url=result, callback=self.parse2,args={"wait":3})
+            #yield scrapy.Request(result, callback=self.parse2)
+            yield SplashRequest(url=result, callback=self.parse2,args={"wait":3})
         if (thisPage != numPages):
             argumentForNextPage=self.start_urls[0]+'&page='+str(thisPage+1)
             time.sleep(60)
