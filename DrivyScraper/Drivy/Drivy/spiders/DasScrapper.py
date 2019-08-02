@@ -49,9 +49,7 @@ class MySpider(scrapy.Spider):
         if (nom_prop == None):
             nom_prop = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[2]/div/span/div[2]/div[1]/span/span/text()').get()
         
-        userProfile = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[2]/div/a/@href').get()
-        if (userProfile == None):
-            userProfile = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[3]/div/a/@href').get()
+        userProfile = response.xpath('//a[@class="car_owner_section"]/@href').get()
             
         
         isDrivey= response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[1]/div/div/div[2]/div[1]/text()').get()
