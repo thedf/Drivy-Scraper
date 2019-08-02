@@ -113,6 +113,7 @@ class MySpider(scrapy.Spider):
         else :
             rating = float(rating)
 
+        accessories = response.xpath('//div[@class="car_show_options__option_content"]/text()').extract()
         mydict = {
                 "nom_voiture" : carName ,
                 'tarif' : price ,
@@ -129,7 +130,8 @@ class MySpider(scrapy.Spider):
                 'compteur':  counter ,
                 'boite': 	 boite ,
                 'nom_propriétaire': nom_prop,
-                'profile' : userProfile
+                'profile' : userProfile,
+                'options_accessoires': accessories
         }
         """
         item = items.DrivyItem()
