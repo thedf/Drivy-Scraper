@@ -27,7 +27,7 @@ if __name__ == "__main__":
    settings.set('ITEM_PIPELINES', {
       '__main__.JsonWriterPipeline': 100
    })
-   crawler = CrawlerProcess(settings)
+   crawler = Crawler(settings)
    crawler.crawl(spider)
    crawler.start()
    reactor.run() # the script will block here
