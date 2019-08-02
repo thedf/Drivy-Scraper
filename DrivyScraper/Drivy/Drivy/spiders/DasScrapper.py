@@ -5,7 +5,7 @@ import time
 from scrapy.crawler import CrawlerProcess
 class MySpider(scrapy.Spider):
     name = "DasScrapper"
-    lien="https://www.drivy.com/search?address=Gare+de+Massy+-+Palaiseau&address_source=poi&poi_id=685&latitude=48.7254&longitude=2.2596&city_display_name=&start_date=2019-08-03&start_time=09%3A00&end_date=2019-08-04&end_time=09%3A00&country_scope=FR&car_sharing=true&user_interacted_with_car_sharing=false"
+    lien=""
     start_urls = [lien]
     myclient = pymongo.MongoClient("mongodb://root:admin123@localhost:27017/")
     mydb = myclient["admin"]
@@ -18,7 +18,6 @@ class MySpider(scrapy.Spider):
         if not url.startswith('http://') and not url.startswith('https://'):
             url = 'http://%s/' % url
         self.start_urls = url
-
 
     def start_requests(self):
         """
