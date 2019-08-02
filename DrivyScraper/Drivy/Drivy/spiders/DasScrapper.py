@@ -50,13 +50,13 @@ class MySpider(scrapy.Spider):
         userProfile = response.xpath('//a[@class="car_owner_section"]/@href').get()
             
         
-        isDrivey= response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[1]/div/div/div[2]/div[1]/text()').get()
+        isDrivey= response.xpath('//div[@class="car_open_section__icon"]').get()
         if (isDrivey == None):
             isDrivey = False
         else :
             isDrivey = True
 
-        isInstant = response.xpath('//*[@id="js_car_id"]/div[2]/div[3]/div/div/div/div[2]/div/div[1]/div/text()').get()
+        isInstant = response.xpath('//div[@class="cobalt-Pill__Icon"]').get()
         if (isInstant == None):
             isInstant = False
         else :
