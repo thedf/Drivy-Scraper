@@ -45,7 +45,7 @@ class MySpider(scrapy.Spider):
         """
         this function is called to parse data out of the cars' pages
         """     
-        nom_prop = response.xpath('//a.[@class="car_owner_section"]/div[2]/div[1]/span/span/text()').get()
+        nom_prop = response.xpath('//span[@class="link_no_style js_drk_lnk"]/text()').get()
         
         userProfile = response.xpath('//a[@class="car_owner_section"]/@href').get()
             
