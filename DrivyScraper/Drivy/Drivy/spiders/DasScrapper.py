@@ -12,9 +12,9 @@ class MySpider(scrapy.Spider):
 
 
     def __init__(self, **kw):
-        super(MySpider, self).__init__(**kw)
         url = kw.get('url') or kw.get('domain')
         self.start_urls = url
+        super(MySpider, self).__init__(**kw)
 
     def start_requests(self):
         """
