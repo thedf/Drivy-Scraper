@@ -11,11 +11,12 @@ class MySpider(scrapy.Spider):
     mycol = mydb["new_collection"]
 
 
-    def __init__(self, **kw):
-        url = kw.get('url') or kw.get('domain')
-        self.start_urls = url
-        print(self.start_urls)
-        super(MySpider, self).__init__(**kw)
+    def __init__(self, *args, **kwargs):
+        urls = kwargs.pop('urls', []) 
+        if urls:
+            self.start_urls = urls.split(',')
+        self.logger.info(self.start_urls)
+        super(MySpider, self).__init__(*args, **kwargs)
 
     def start_requests(self):
         """
