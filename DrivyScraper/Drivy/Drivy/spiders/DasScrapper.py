@@ -72,15 +72,15 @@ class MySpider(scrapy.Spider):
 
         year =  int(response.xpath('//span[@class="car_info_header__attributes"]/text()[2]').get())
 
-        adress = response.xpath('//div[@itemprop="address"]/text()').get()
+        adress = response.xpath('//div[@itemprop="address"]/div/text()').get()
 
-        priaviMinimum = response.xpath('//div[@itemprop="car_owner_restrictions"]/div/div/text()').get() 
+        priaviMinimum = response.xpath('//div[@itemprop="car_owner_restrictions__restriction"]/div/div/text()').get() 
         if (priaviMinimum == None):
-             priaviMinimum = response.xpath('//div[@itemprop="car_owner_restrictions"][2]/div/div/text()').get() 
+             priaviMinimum = response.xpath('//div[@itemprop="car_owner_restrictions__restriction"][2]/div/div/text()').get() 
         if (priaviMinimum == None):
-             priaviMinimum = response.xpath('//div[@itemprop="car_owner_restrictions"][1]/div/div/text()').get() 
+             priaviMinimum = response.xpath('//div[@itemprop="car_owner_restrictions__restriction"][1]/div/div/text()').get() 
         if (priaviMinimum == None):
-             priaviMinimum = response.xpath('//div[@itemprop="car_owner_restrictions"][3]/div/div/text()').get() 
+             priaviMinimum = response.xpath('//div[@itemprop="car_owner_restrictions__restriction"][3]/div/div/text()').get() 
         if (priaviMinimum == None):  
             priaviMinimum = "rien"
         
