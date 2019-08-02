@@ -1,8 +1,5 @@
-from twisted.internet import reactor
 from scrapy.crawler import CrawlerProcess
-from scrapy.settings import Settings
 from spiders.DasScrapper import MySpider
-from scrapy.utils.project import get_project_settings
 import sys, getopt
 
 
@@ -22,11 +19,8 @@ def getArgs(argv):
 
 if __name__ == "__main__":
     url=getArgs(sys.argv[1:])
-    spider = MySpider(domain=url)
-    process = CrawlerProcess({
-    'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)'
-   })
-    process.crawl(spider)
+    process = CrawlerProcess()
+    process.crawl(MySpider,domain=url)
     process.start()
 
 
