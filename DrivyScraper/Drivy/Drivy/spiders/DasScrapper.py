@@ -3,6 +3,7 @@ from scrapy_splash import SplashRequest
 from .. import items
 import pymongo
 import time
+import random
 class MySpider(scrapy.Spider):
     name = "DasScrapper"
     start_urls = ["google.com"]
@@ -10,6 +11,7 @@ class MySpider(scrapy.Spider):
     myclient = pymongo.MongoClient("mongodb://root:admin123@localhost:27017/")
     mydb = myclient["admin"]
     mycol = mydb["new_collection"]
+    proxies = ["80.50.233.124:80","5.133.27.27:8080","66.96.232.138:3128","182.160.104.34:54713"]
 
     def __init__(self, *args, **kwargs): 
       super(MySpider, self).__init__(*args, **kwargs) 
@@ -39,7 +41,7 @@ class MySpider(scrapy.Spider):
         if (thisPage != numPages):
             argumentForNextPage=self.start_urls[0]+'&page='+str(thisPage+1)
             time.sleep(10)
-            yield SplashRequest(url=argumentForNextPage, callback=self.parse,args={"wait":3})
+            yield SplashRequest(url=argumentForNextPage, callback=self.parse,args={"wait":3,"proxy":random.choice(self.proxies)})
 
     def parse2(self, response): 
         """
