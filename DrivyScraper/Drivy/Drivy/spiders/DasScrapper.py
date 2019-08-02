@@ -85,7 +85,7 @@ class MySpider(scrapy.Spider):
             priaviMinimum = "rien"
         
 
-        motorType = response.xpath('//div[class="car_technical_features"]/div[1]/div[1]/p/text()').get()
+        motorType = response.xpath('//div[class="car_technical_features"]').get()
 
         counter = response.xpath('//div[class="car_technical_features"]/div[1]/div[2]/p/text()').get()
 
