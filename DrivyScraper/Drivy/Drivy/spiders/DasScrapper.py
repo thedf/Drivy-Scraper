@@ -64,52 +64,34 @@ class MySpider(scrapy.Spider):
         else :
             isInstant = True
         
-        numbrePlaces = int(response.xpath('//*[@id="js_car_id"]/div[2]/div[3]/div/div/div/div[1]/div[1]/div/div/span/text()[3]').get().split(" ")[0])
+        numbrePlaces = int(response.xpath('//span[@class="car_info_header__attributes"]/text()[3]').get().split(" ")[0])
         
-        price = float(response.xpath('//*[@id="request_form"]/div[2]/div/div[1]/div[2]/span/text()').get().split("€")[0])
+        price = float(response.xpath('//div[@class="cobalt-text-titleLarge.js_price_value"]/text()').get().split("€")[0])
 
-        carName = response.xpath('//*[@id="js_car_id"]/div[2]/div[3]/div/div/div/div[1]/div[1]/h1/text()').get()
+        carName = response.xpath('//h1[@class="car_info_header__title js_car_name"]/text()').get()
 
-        year =  int(response.xpath('//*[@id="js_car_id"]/div[2]/div[3]/div/div/div/div[1]/div[1]/div/div/span/text()[2]').get())
+        year =  int(response.xpath('//span[@class="car_info_header__attributes"]/text()[2]').get())
 
-        adress = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[2]/div/div/div[1]/div[2]/div[2]/div[2]/div/text()').get()
-        if (adress == None):
-            adress = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[1]/div/div/div[1]/div[2]/div[2]/div[2]/div/text()').get()
+        adress = response.xpath('//div[@itemprop="address"]/text()').get()
 
-        priaviMinimum = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[5]/div/div[2]/div[1]/div/div/div/text()').get() 
+        priaviMinimum = response.xpath('//div[@itemprop="car_owner_restrictions"]/div/div/div/text()').get() 
         if (priaviMinimum == None):
-             priaviMinimum = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div/text()').get() 
+             priaviMinimum = response.xpath('//div[@itemprop="car_owner_restrictions"]div[2]/div/div/text()').get() 
         if (priaviMinimum == None):
-            priaviMinimum = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[3]/div/div[2]/div/div[2]/div/div/text()').get()
+             priaviMinimum = response.xpath('//div[@itemprop="car_owner_restrictions"]div[1]/div/div/text()').get() 
         if (priaviMinimum == None):
-            priaviMinimum = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[4]/div/div[2]/div[1]/div/div/div/text()').get()
-        if (priaviMinimum == None):
-            priaviMinimum = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[3]/div/div[2]/div/div/div/div/text()').get()
-        if (priaviMinimum == None):
-            priaviMinimum = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[4]/div/div[2]/div/div/div/div/text()').get()
+             priaviMinimum = response.xpath('//div[@itemprop="car_owner_restrictions"]div[3]/div/div/text()').get() 
         if (priaviMinimum == None):  
             priaviMinimum = "rien"
         
 
-        motorType = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[5]/div[1]/div/div/div[2]/div[1]/div[1]/p/text()').get()
-        if (motorType == None):
-            motorType = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[4]/div[1]/div/div/div[2]/div[1]/div[1]/p/text()').get()
-        if (motorType == None):
-            motorType = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[6]/div[1]/div/div/div[2]/div[1]/div[1]/p/text()').get()
-        
-        counter = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[5]/div[1]/div/div/div[2]/div[1]/div[2]/p/text()').get()
-        if (counter == None):
-            counter = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[4]/div[1]/div/div/div[2]/div[1]/div[2]/p/text()').get()
-        if (counter == None):
-            counter = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[6]/div[1]/div/div/div[2]/div[1]/div[2]/p/text()').get()
-        
-        boite = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[5]/div[1]/div/div/div[2]/div[2]/div/p/text()').get()
-        if (boite == None):
-            boite =response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[4]/div[1]/div/div/div[2]/div[2]/div/p/text()').get()
-        if (boite == None):
-            boite =response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[6]/div[1]/div/div/div[2]/div[2]/div/p/text()').get()
-        
+        motorType = response.xpath('//div[class="car_technical_features__features_group"][1]/div[1]/p/text()').get()
 
+        counter = response.xpath('//div[class="car_technical_features__features_group"][1]/div[2]/p/text()').get()
+
+        boite = response.xpath('//div[class="car_technical_features__features_group"][2]/div/p/text()').get()
+
+        """
         evaluationNumberP = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[3]/div/span/div[2]/div[2]/div/div[2]/div[1]/text()').get()
         if (evaluationNumberP == None):
             evaluationNumberP = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[2]/div/span/div[2]/div[2]/div/div[2]/div[1]/text()').get()
@@ -119,24 +101,17 @@ class MySpider(scrapy.Spider):
                 evaluationNumberP = int (evaluationNumberP)
         else :
             evaluationNumberP = int(evaluationNumberP)
-        
-        evaluationNumber = response.xpath('//*[@id="js_car_id"]/div[2]/div[3]/div/div/div/div[1]/div[1]/div/div/button/span/text()').get() 
+        """
+
+        evaluationNumber = response.xpath('//span[class="car_card__ratings_count"]/text()').get() 
         if (evaluationNumber == None):
-            evaluationNumber = response.xpath('//*[@id="js_car_id"]/div[2]/div[3]/div/div/div/button/span/text()').get()
-            if (evaluationNumber == None ):
-                evaluationNumber = 0
-            else :
-                evaluationNumber = int (evaluationNumber)
+            evaluationNumber = 0
         else :
             evaluationNumber = int(evaluationNumber)
         
-        rating = response.xpath('//*[@id="js_car_id"]/div[2]/div[3]/div/div/div/div[1]/div[1]/div/div/button/meta[1]/@content').get() 
+        rating = response.xpath('//button[class="unstyled.car_card__ratings.car_card__ratings--clickable js_car_card__ratings"]/meta[1]/@content').get() 
         if (rating == None):
-            rating = response.xpath('//*[@id="js_car_id"]/div[2]/div[3]/div/div/div/button/meta[1]/@content').get()
-            if (rating == None):
-                rating = 0
-            else :
-                rating = float(rating)
+            rating = 0.0
         else :
             rating = float(rating)
 
