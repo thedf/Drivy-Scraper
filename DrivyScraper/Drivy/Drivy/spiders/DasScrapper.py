@@ -157,7 +157,7 @@ class MySpider(scrapy.Spider):
                 'boite': 	 boite ,
                 'nom_propriétaire': nom_prop
         }
-        item = MyItem()
+        item = DrivyItem()
         item['dic'] = mydict
         request = scrapy.Request("https://www.drivy.com"+userProfile, callback=self.parse3)
         request.meta['item'] = item
