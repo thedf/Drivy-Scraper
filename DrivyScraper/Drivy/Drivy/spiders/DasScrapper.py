@@ -133,15 +133,14 @@ class MySpider(scrapy.Spider):
                 'profile' : userProfile,
                 'options_accessoires': accessories
         }
-        """
+        
         item = items.DrivyItem()
         item['mydict'] = mydict
-        request = scrapy.Request("https://www.drivy.com", callback=self.parse3)
+        request = scrapy.Request("https://www.drivy.com"+userProfile, callback=self.parse3)
         request.meta['item'] = item
         yield request 
         #x = self.mycol.insert_one(mydict)
-        """
-        yield mydict
+        #yield mydict
         
 
     def parse3(self, response):
