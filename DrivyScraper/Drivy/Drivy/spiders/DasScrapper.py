@@ -11,7 +11,7 @@ class MySpider(scrapy.Spider):
     myclient = pymongo.MongoClient("mongodb://root:admin123@localhost:27017/")
     mydb = myclient["admin"]
     mycol = mydb["new_collection"]
-    proxies = ["80.50.233.124:80","5.133.27.27:8080","66.96.232.138:3128","182.160.104.34:54713"]
+    proxies = ["txbcevpy-1:285zntk9zbw4@p.webshare.io:80","txbcevpy-2:285zntk9zbw4@p.webshare.io:80	","txbcevpy-3:285zntk9zbw4@p.webshare.io:80	","txbcevpy-4:285zntk9zbw4@p.webshare.io:80	"]
 
     def __init__(self, *args, **kwargs): 
       super(MySpider, self).__init__(*args, **kwargs) 
