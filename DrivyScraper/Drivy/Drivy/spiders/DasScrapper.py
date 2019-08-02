@@ -10,14 +10,6 @@ class MySpider(scrapy.Spider):
     mydb = myclient["admin"]
     mycol = mydb["new_collection"]
 
-
-    def __init__(self, *args, **kwargs):
-        urls = kwargs.pop('urls', []) 
-        if urls:
-            self.start_urls = urls.split(',')
-        self.logger.info(self.start_urls)
-        super(MySpider, self).__init__(*args, **kwargs)
-
     def start_requests(self):
         """
         This function starts the first request and the first action to do when the script is called.
