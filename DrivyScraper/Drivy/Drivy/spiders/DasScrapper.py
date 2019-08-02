@@ -62,7 +62,11 @@ class MySpider(scrapy.Spider):
         else :
             isInstant = True
         
-        numbrePlaces = int(response.xpath('//span[@class="car_info_header__attributes"]/text()[3]').get().split(" ")[0])
+        numbrePlaces = response.xpath('//span[@class="car_info_header__attributes"]/text()[3]').get()
+        if (numbrePlaces == None):
+            numbrePlaces = response.xpath('//*[@id="js_car_id"]/div[2]/div[3]/div/div/div/div[1]/div[1]/div/div/span/text()[3]').get()
+        else :
+            numbrePlaces = int(numbrePlaces.split(" ")[0])
         
         price = float(response.xpath('//div[@class="cobalt-text-titleLarge js_price_value"]/text()').get().split("€")[0])
 
