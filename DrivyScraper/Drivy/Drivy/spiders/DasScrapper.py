@@ -33,7 +33,7 @@ class MySpider(scrapy.Spider):
         result=""
         for pick in picks :
             result="https://www.drivy.com"+pick.css("a").attrib['href']
-            time.sleep(10)
+            time.sleep(5)
             #yield scrapy.Request(result, callback=self.parse2)
             yield SplashRequest(url=result, callback=self.parse2,args={"wait":3})
         if (thisPage != numPages):
