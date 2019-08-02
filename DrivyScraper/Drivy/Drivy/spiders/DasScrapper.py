@@ -42,7 +42,7 @@ class MySpider(scrapy.Spider):
             time.sleep(20)
             yield SplashRequest(url=argumentForNextPage, callback=self.parse,args={"wait":3})
         """
-        yield {"content":pages}
+        yield {"content":response}
     def parse2(self, response): 
         """
         this function is called to parse data out of the cars' pages
