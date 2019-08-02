@@ -74,13 +74,13 @@ class MySpider(scrapy.Spider):
 
         adress = response.xpath('//div[@itemprop="address"]/text()').get()
 
-        priaviMinimum = response.xpath('//div[@itemprop="car_owner_restrictions"]/div/div/div/text()').get() 
+        priaviMinimum = response.xpath('//div[@itemprop="car_owner_restrictions"]/div/div/text()').get() 
         if (priaviMinimum == None):
-             priaviMinimum = response.xpath('//div[@itemprop="car_owner_restrictions"]div[2]/div/div/text()').get() 
+             priaviMinimum = response.xpath('//div[@itemprop="car_owner_restrictions"][2]/div/div/text()').get() 
         if (priaviMinimum == None):
-             priaviMinimum = response.xpath('//div[@itemprop="car_owner_restrictions"]div[1]/div/div/text()').get() 
+             priaviMinimum = response.xpath('//div[@itemprop="car_owner_restrictions"][1]/div/div/text()').get() 
         if (priaviMinimum == None):
-             priaviMinimum = response.xpath('//div[@itemprop="car_owner_restrictions"]div[3]/div/div/text()').get() 
+             priaviMinimum = response.xpath('//div[@itemprop="car_owner_restrictions"][3]/div/div/text()').get() 
         if (priaviMinimum == None):  
             priaviMinimum = "rien"
         
@@ -109,7 +109,7 @@ class MySpider(scrapy.Spider):
         else :
             evaluationNumber = int(evaluationNumber)
         
-        rating = response.xpath('//button[class="unstyled.car_card__ratings.car_card__ratings--clickable js_car_card__ratings"]/meta[1]/@content').get() 
+        rating = response.xpath('//button[class="unstyled car_card__ratings car_card__ratings--clickable js_car_card__ratings"]/meta[1]/@content').get() 
         if (rating == None):
             rating = 0.0
         else :
