@@ -66,7 +66,7 @@ class MySpider(scrapy.Spider):
         
         numbrePlaces = int(response.xpath('//span[@class="car_info_header__attributes"]/text()[3]').get().split(" ")[0])
         
-        price = float(response.xpath('//div[@class="cobalt-text-titleLarge.js_price_value"]/text()').get().split("€")[0])
+        price = float(response.xpath('//div[@class="cobalt-text-titleLarge js_price_value"]/text()').get().split("€")[0])
 
         carName = response.xpath('//h1[@class="car_info_header__title js_car_name"]/text()').get()
 
