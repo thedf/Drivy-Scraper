@@ -11,8 +11,7 @@ class MySpider(scrapy.Spider):
     myclient = pymongo.MongoClient("mongodb://root:admin123@localhost:27017/")
     mydb = myclient["admin"]
     mycol = mydb["new_collection"]
-    proxies = ["txbcevpy-1:285zntk9zbw4@p.webshare.io:80","txbcevpy-2:285zntk9zbw4@p.webshare.io:80	","txbcevpy-3:285zntk9zbw4@p.webshare.io:80	","txbcevpy-4:285zntk9zbw4@p.webshare.io:80	"]
-
+    
     def __init__(self, *args, **kwargs): 
       super(MySpider, self).__init__(*args, **kwargs) 
       self.start_urls = [kwargs.get('start_url')] 
@@ -37,11 +36,11 @@ class MySpider(scrapy.Spider):
             result="https://www.drivy.com"+pick.css("a").attrib['href']
             time.sleep(5)
             #yield scrapy.Request(result, callback=self.parse2)
-            yield SplashRequest(url=result, callback=self.parse2,args={"wait":3,"proxy":random.choice(self.proxies)})
+            yield SplashRequest(url=result, callback=self.parse2,args={"wait":3})
         if (thisPage != numPages):
             argumentForNextPage=self.start_urls[0]+'&page='+str(thisPage+1)
             time.sleep(10)
-            yield SplashRequest(url=argumentForNextPage, callback=self.parse,args={"wait":3,"proxy":random.choice(self.proxies)})
+            yield SplashRequest(url=argumentForNextPage, callback=self.parse,args={"wait":3})
 
     def parse2(self, response): 
         """
