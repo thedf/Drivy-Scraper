@@ -23,10 +23,10 @@ def getArgs(argv):
 if __name__ == "__main__":
     url=getArgs(sys.argv[1:])
     spider = MySpider(domain=url)
-    settings = get_project_settings()
-    crawler = CrawlerProcess(settings)
-    crawler.crawl(spider)
-    crawler.start()
-    reactor.run() # the script will block here
+    process = CrawlerProcess({
+    'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)'
+   })
+    process.crawl(spider)
+    process.start()
 
 
