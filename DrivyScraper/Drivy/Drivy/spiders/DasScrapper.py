@@ -1,5 +1,6 @@
 import scrapy
 from scrapy_splash import SplashRequest
+from items import DrivyItem
 import pymongo
 import time
 class MySpider(scrapy.Spider):
@@ -158,7 +159,7 @@ class MySpider(scrapy.Spider):
                 'nom_propriétaire': nom_prop
         }
         item = DrivyItem()
-        item['dic'] = mydict
+        item['mydict'] = mydict
         request = scrapy.Request("https://www.drivy.com"+userProfile, callback=self.parse3)
         request.meta['item'] = item
         yield request 
@@ -167,5 +168,5 @@ class MySpider(scrapy.Spider):
 
     def parse3(self, response):
         item = response.meta['item']
-        mydict = item['dic'] 
+        mydict = item['mydict'] 
         yield mydict
