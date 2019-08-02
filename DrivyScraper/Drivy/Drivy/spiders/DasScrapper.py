@@ -29,6 +29,9 @@ class MySpider(scrapy.Spider):
         if (nom_prop == None):
             nom_prop = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[2]/div/span/div[2]/div[1]/span/span/text()').get()
         
+        
+        userProfile = response.css('a.car_owner_section').attrib['href']
+        
         isDrivey= response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[1]/div/div/div[2]/div[1]/text()').get()
         if (isDrivey == None):
             isDrivey = False
@@ -116,6 +119,7 @@ class MySpider(scrapy.Spider):
                 rating = float(rating)
         else :
             rating = float(rating)
+
         mydict = {
                 "nom_voiture" : carName ,
                 'tarif' : price ,
@@ -134,9 +138,13 @@ class MySpider(scrapy.Spider):
                 'nom_propriétaire': nom_prop,
                 'nombre_eval_proprio': evaluationNumberP ,
                 'note_proprio': response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[3]/div/span/div[2]/div[2]/div/div[1]/text()').get() ,
+                'profileUrl' : userProfile
         }
-        x = self.mycol.insert_one(mydict)
-        yield {"Success" : True }
+        #item = MyItem()
+        #item['dic'] = mydict
+        #yield scrapy.Request(result, callback=self.parse2)
+        #x = self.mycol.insert_one(mydict)
+        yield mydict
         
     def parse(self, response):
         content = response.xpath('//*[@id="js_picks"]/div[6]/div/div[2]/div[3]/div/div[2]/div[2]')
