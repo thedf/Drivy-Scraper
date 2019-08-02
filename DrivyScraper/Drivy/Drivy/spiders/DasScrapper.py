@@ -30,7 +30,7 @@ class MySpider(scrapy.Spider):
             nom_prop = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[2]/div/span/div[2]/div[1]/span/span/text()').get()
         
         
-        userProfile = response.xpath("//a[contains(@class,'car_owner_section')]/@href").extract()
+        userProfile = response.xpath("//a[contains(@class,'car_owner_section')]/@href").extractall()
         
         isDrivey= response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[1]/div/div/div[2]/div[1]/text()').get()
         if (isDrivey == None):
