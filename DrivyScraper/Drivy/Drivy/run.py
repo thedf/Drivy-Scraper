@@ -1,7 +1,5 @@
-from scrapy.crawler import CrawlerProcess
-from spiders.DasScrapper import MySpider
-import sys, getopt
-
+import sys
+import os
 
 def getArgs(argv):
    try:
@@ -19,9 +17,6 @@ def getArgs(argv):
 
 if __name__ == "__main__":
    url=getArgs(sys.argv[1:])
-   crawler = CrawlerProcess()
-   spider = MySpider()  
-   crawler.crawl(MySpider,start_urls=[url])
-   crawler.start()
+   os.system("scrapy crawl DasScrapper --a start_url='"+url+"'")
 
 
