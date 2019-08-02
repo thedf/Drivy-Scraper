@@ -5,7 +5,7 @@ import time
 from scrapy.crawler import CrawlerProcess
 class MySpider(scrapy.Spider):
     name = "DasScrapper"
-    start_urls = ""
+    start_urls = "http://google.com/"
     myclient = pymongo.MongoClient("mongodb://root:admin123@localhost:27017/")
     mydb = myclient["admin"]
     mycol = mydb["new_collection"]
