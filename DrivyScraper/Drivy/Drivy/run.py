@@ -1,4 +1,4 @@
-import sys
+import sys, getopt
 import os
 
 def getArgs(argv):
