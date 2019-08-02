@@ -22,8 +22,7 @@ def getArgs(argv):
 if __name__ == "__main__":
     url=getArgs(sys.argv[1:])
     spider = MySpider(domain=url)
-    crawler = Crawler(Settings())
-    crawler.configure()
+    crawler = Crawler()
     crawler.crawl(spider)
     crawler.start()
     reactor.run() # the script will block here
