@@ -49,9 +49,9 @@ class MySpider(scrapy.Spider):
         if (nom_prop == None):
             nom_prop = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[2]/div/span/div[2]/div[1]/span/span/text()').get()
         
-        userProfile = response.css('#js_car_id > div.container > div:nth-child(1) > div.col-md-8.col-sm-7.col-xs-12.no-outer-gutter-xs > div:nth-child(7) > div > a').get()
+        userProfile = response.css('#js_car_id > div.container > div:nth-child(1) > div.col-md-8.col-sm-7.col-xs-12.no-outer-gutter-xs > div:nth-child(7) > div > a').attrib['href']
         if (userProfile == None):
-            userProfile = response.css('#js_car_id > div.container > div:nth-child(1) > div.col-md-8.col-sm-7.col-xs-12.no-outer-gutter-xs > div:nth-child(8) > div > a').get()
+            userProfile = response.css('#js_car_id > div.container > div:nth-child(1) > div.col-md-8.col-sm-7.col-xs-12.no-outer-gutter-xs > div:nth-child(8) > div > a').attrib['href']
             
         
         isDrivey= response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[1]/div/div/div[2]/div[1]/text()').get()
