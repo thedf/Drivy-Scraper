@@ -10,4 +10,4 @@ import scrapy
 
 class DrivyItem(scrapy.Item):
     # define the fields for your item here like:
-    Links = scrapy.Field()
+    mydict = scrapy.Field()
