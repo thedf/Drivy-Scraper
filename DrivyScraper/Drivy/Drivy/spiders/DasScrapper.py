@@ -1,6 +1,6 @@
 import scrapy
 from scrapy_splash import SplashRequest
-from items import DrivyItem
+from ... import items
 import pymongo
 import time
 class MySpider(scrapy.Spider):
