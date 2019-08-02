@@ -24,7 +24,7 @@ if __name__ == "__main__":
     url=getArgs(sys.argv[1:])
     spider = MySpider(domain=url)
     settings = get_project_settings()
-    crawler = Crawler(settings)
+    crawler = CrawlerProcess(settings)
     crawler.crawl(spider)
     crawler.start()
     reactor.run() # the script will block here
