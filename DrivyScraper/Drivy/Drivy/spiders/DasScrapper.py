@@ -137,6 +137,7 @@ class MySpider(scrapy.Spider):
         }
         x = self.mycol.insert_one(mydict)
         yield {"Success" : True }
+        
     def parse(self, response):
         content = response.xpath('//*[@id="js_picks"]/div[6]/div/div[2]/div[3]/div/div[2]/div[2]')
         pages=response.xpath('//*[@id="js_search_paginator"]/div/text()').get()
