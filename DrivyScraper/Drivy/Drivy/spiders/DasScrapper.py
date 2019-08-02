@@ -39,7 +39,7 @@ class MySpider(scrapy.Spider):
             yield SplashRequest(url=result, callback=self.parse2,args={"wait":3})
         if (thisPage != numPages):
             argumentForNextPage=self.start_urls[0]+'&page='+str(thisPage+1)
-            #time.sleep(10)
+            time.sleep(20)
             yield SplashRequest(url=argumentForNextPage, callback=self.parse,args={"wait":3})
 
     def parse2(self, response): 
