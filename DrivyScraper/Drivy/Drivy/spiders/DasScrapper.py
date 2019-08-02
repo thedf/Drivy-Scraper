@@ -21,6 +21,25 @@ class MySpider(scrapy.Spider):
         """
         for url in self.start_urls:
             yield SplashRequest(url=url, callback=self.parse,args={"wait":3})
+
+    def parse(self, response):
+        content = response.xpath('//*[@id="js_picks"]/div[6]/div/div[2]/div[3]/div/div[2]/div[2]')
+        pages=response.xpath('//*[@id="js_search_paginator"]/div/text()').get()
+        pageSplit=pages.split(' ')
+        numPages=int(pageSplit[3])
+        thisPage=int(pageSplit[1])
+        picks=content.css("div.pick_result")
+        result=""
+        for pick in picks :
+            result="https://www.drivy.com"+pick.css("a").attrib['href']
+            time.sleep(2)
+            yield scrapy.Request(result, callback=self.parse2)
+            #yield SplashRequest(url=result, callback=self.parse2,args={"wait":3})
+        if (thisPage != numPages):
+            argumentForNextPage=self.start_urls[0]+'&page='+str(thisPage+1)
+            time.sleep(60)
+            yield SplashRequest(url=argumentForNextPage, callback=self.parse,args={"wait":3})
+
     def parse2(self, response): 
         """
         this function is called to parse data out of the cars' pages
@@ -29,8 +48,9 @@ class MySpider(scrapy.Spider):
         if (nom_prop == None):
             nom_prop = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[2]/div/span/div[2]/div[1]/span/span/text()').get()
         
-        
-        userProfile = response.xpath("//a[contains(@class,'car_owner_section')]/@href").get()
+        userProfile = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[2]/div/a').attrib['href']
+        if (userProfile == None):
+            userProfile = response.css('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[3]/div/a').attrib['href']
         
         isDrivey= response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[1]/div/div/div[2]/div[1]/text()').get()
         if (isDrivey == None):
@@ -135,32 +155,17 @@ class MySpider(scrapy.Spider):
                 'moteur': motorType  ,
                 'compteur':  counter ,
                 'boite': 	 boite ,
-                'nom_propriétaire': nom_prop,
-                'nombre_eval_proprio': evaluationNumberP ,
-                'note_proprio': response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[3]/div/span/div[2]/div[2]/div/div[1]/text()').get() ,
-                'profileUrl' : userProfile
+                'nom_propriétaire': nom_prop
         }
-        #item = MyItem()
-        #item['dic'] = mydict
-        #yield scrapy.Request(result, callback=self.parse2)
+        item = MyItem()
+        item['dic'] = mydict
+        request = scrapy.Request("https://www.drivy.com"+userProfile, callback=self.parse3)
+        request.meta['item'] = item
+        yield request 
         #x = self.mycol.insert_one(mydict)
-        yield mydict
         
-    def parse(self, response):
-        content = response.xpath('//*[@id="js_picks"]/div[6]/div/div[2]/div[3]/div/div[2]/div[2]')
-        pages=response.xpath('//*[@id="js_search_paginator"]/div/text()').get()
-        pageSplit=pages.split(' ')
-        numPages=int(pageSplit[3])
-        thisPage=int(pageSplit[1])
-        picks=content.css("div.pick_result")
-        result=""
-        for pick in picks :
-            result="https://www.drivy.com"+pick.css("a").attrib['href']
-            time.sleep(2)
-            yield scrapy.Request(result, callback=self.parse2)
-            #yield SplashRequest(url=result, callback=self.parse2,args={"wait":3})
-        if (thisPage != numPages):
-            argumentForNextPage=self.start_urls[0]+'&page='+str(thisPage+1)
-            time.sleep(60)
-            yield SplashRequest(url=argumentForNextPage, callback=self.parse,args={"wait":3})
 
+    def parse3(self, response):
+        item = response.meta['item']
+        mydict = item['dic'] 
+        yield mydict
