@@ -154,7 +154,7 @@ class MySpider(scrapy.Spider):
             yield scrapy.Request(result, callback=self.parse2)
             #yield SplashRequest(url=result, callback=self.parse2,args={"wait":3})
         if (thisPage != numPages):
-            argumentForNextPage=self.lien+'&page='+str(thisPage+1)
+            argumentForNextPage=self.start_urls+'&page='+str(thisPage+1)
             time.sleep(60)
             yield SplashRequest(url=argumentForNextPage, callback=self.parse,args={"wait":3})
 
