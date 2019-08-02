@@ -2,6 +2,7 @@ from twisted.internet import reactor
 from scrapy.crawler import Crawler
 from scrapy.settings import Settings
 from spiders.DasScrapper import MySpider
+from scrapy.utils.project import get_project_settings
 import sys, getopt
 
 
@@ -22,7 +23,8 @@ def getArgs(argv):
 if __name__ == "__main__":
     url=getArgs(sys.argv[1:])
     spider = MySpider(domain=url)
-    crawler = Crawler()
+    settings = get_project_settings()
+    crawler = Crawler(settings)
     crawler.crawl(spider)
     crawler.start()
     reactor.run() # the script will block here
