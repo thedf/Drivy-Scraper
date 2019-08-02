@@ -18,12 +18,6 @@ class MySpider(scrapy.Spider):
         if not url.startswith('http://') and not url.startswith('https://'):
             url = 'http://%s/' % url
         self.start_urls = url
-        mongourl = kw.get('mongodb')
-        mongodb = kw.get('db')
-        mongocol = kw.get('collection')
-        self.myclient = pymongo.MongoClient(mongourl)
-        self.mydb = myclient[mongodb]
-        self.mycol = mydb[mongocol]
 
 
     def start_requests(self):
