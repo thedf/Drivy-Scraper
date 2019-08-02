@@ -20,7 +20,8 @@ def getArgs(argv):
 if __name__ == "__main__":
     url=getArgs(sys.argv[1:])
     process = CrawlerProcess()
-    process.crawl(MySpider,domain=url)
+    spider=MySpider(domain=url)
+    process.crawl(spider)
     process.start()
 
 
