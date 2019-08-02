@@ -11,7 +11,9 @@ class MySpider(scrapy.Spider):
     myclient = pymongo.MongoClient("mongodb://root:admin123@localhost:27017/")
     mydb = myclient["admin"]
     mycol = mydb["new_collection"]
-    
+    host = "http://olympic.usefixie.com:80"
+    username="fixie"
+    password = "jFkCP1vhrJtUnfT"
     def __init__(self, *args, **kwargs): 
       super(MySpider, self).__init__(*args, **kwargs) 
       self.start_urls = [kwargs.get('start_url')] 
@@ -22,7 +24,7 @@ class MySpider(scrapy.Spider):
         So this calls the first url (the search url)
         """
         for url in self.start_urls:
-            yield SplashRequest(url=url, callback=self.parse,args={"wait":3})
+            yield SplashRequest(url=url, callback=self.parse,args={"wait":3},meta={'proxy':self.host},headers={"Proxy-Authorization" : basic_auth_header(self.username,self.password)})
 
     def parse(self, response):
         content = response.xpath('//*[@id="js_picks"]/div[6]/div/div[2]/div[3]/div/div[2]/div[2]')
