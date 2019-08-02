@@ -101,3 +101,11 @@ class DrivyDownloaderMiddleware(object):
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
+class ABProxyMiddleware(HttpProxyMiddleware):
+    """ 阿布云ip代理配置 """
+    proxies = ["txbcevpy-1:285zntk9zbw4@p.webshare.io:80","txbcevpy-2:285zntk9zbw4@p.webshare.io:80	","txbcevpy-3:285zntk9zbw4@p.webshare.io:80	","txbcevpy-4:285zntk9zbw4@p.webshare.io:80	"]
+    proxyAuth = "Basic " + base64.urlsafe_b64encode(
+        bytes((settings['PROXY_USER'] + ":" + settings['PROXY_PASS']), "ascii")).decode("utf-8")
+
+    def process_request(self, request, spider):
+        request.meta['splash']['args']['proxy'] = random.choice(self.proxies)
