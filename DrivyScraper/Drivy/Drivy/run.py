@@ -1,8 +1,5 @@
-from twisted.internet import reactor
-from scrapy.crawler import Crawler
-from scrapy.settings import Settings
+from scrapy.crawler import CrawlerProcess
 from spiders.DasScrapper import MySpider
-from scrapy.utils.project import get_project_settings
 import sys, getopt
 
 
@@ -22,14 +19,8 @@ def getArgs(argv):
 
 if __name__ == "__main__":
    url=getArgs(sys.argv[1:])
-   spider = MySpider(domain=url)
-   settings = Settings()
-   settings.set('ITEM_PIPELINES', {
-      '__main__.JsonWriterPipeline': 100
-   })
-   crawler = Crawler(settings)
-   crawler.crawl(spider)
+   crawler = CrawlerProcess()
+   crawler.crawl(MySpider,urls=[url])
    crawler.start()
-   reactor.run() # the script will block here
 
 
