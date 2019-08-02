@@ -17,6 +17,6 @@ def getArgs(argv):
 
 if __name__ == "__main__":
    url=getArgs(sys.argv[1:])
-   os.system("scrapy crawl DasScrapper --a start_url='"+url+"'")
+   os.system("scrapy crawl DasScrapper -a start_url='"+url+"'")
 
 
