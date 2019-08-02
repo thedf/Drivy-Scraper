@@ -89,9 +89,6 @@ COOKIES_ENABLED = False
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-ROTATING_PROXY_LIST = [
-'fixie:jFkCP1vhrJtUnfT@olympic.usefixie.com:80',
-]
 
 DOWNLOADER_MIDDLEWARES = {
     'scrapy_splash.SplashCookiesMiddleware': 723,
