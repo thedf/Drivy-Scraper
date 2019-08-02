@@ -4,7 +4,7 @@ import pymongo
 import time
 class MySpider(scrapy.Spider):
     name = "DasScrapper"
-    start_urls = ["http://google.com/"]
+    start_urls = ["https://www.drivy.com/search?address=Gare+de+Massy+-+Palaiseau&address_source=poi&poi_id=685&latitude=48.7254&longitude=2.2596&city_display_name=&start_date=2019-08-03&start_time=09%3A00&end_date=2019-08-04&end_time=09%3A00&country_scope=FR&car_sharing=true&user_interacted_with_car_sharing=false"]
     myclient = pymongo.MongoClient("mongodb://root:admin123@localhost:27017/")
     mydb = myclient["admin"]
     mycol = mydb["new_collection"]
@@ -146,7 +146,7 @@ class MySpider(scrapy.Spider):
             yield scrapy.Request(result, callback=self.parse2)
             #yield SplashRequest(url=result, callback=self.parse2,args={"wait":3})
         if (thisPage != numPages):
-            argumentForNextPage=self.start_urls+'&page='+str(thisPage+1)
+            argumentForNextPage=self.start_urls[0]+'&page='+str(thisPage+1)
             time.sleep(60)
             yield SplashRequest(url=argumentForNextPage, callback=self.parse,args={"wait":3})
 
