@@ -31,7 +31,6 @@ class MySpider(scrapy.Spider):
                         endpoint='execute',
                         args={
                             'lua_source': self.LUA_SOURCE,
-                            'wait':3,
                             'timeout':3600
                         },
                         # tell Splash to cache the lua script, to avoid sending it for every request
@@ -54,7 +53,6 @@ class MySpider(scrapy.Spider):
                         endpoint='execute',
                         args={
                             'lua_source': self.LUA_SOURCE,
-                            'wait':3,
                             'timeout':3600
                         },
                         # tell Splash to cache the lua script, to avoid sending it for every request
