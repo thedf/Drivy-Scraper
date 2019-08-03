@@ -5,6 +5,7 @@ import pymongo
 import time
 import random
 import pkgutil
+from w3lib import basic_auth_header
 class MySpider(scrapy.Spider):
     name = "DasScrapper"
     start_urls = ["google.com"]
@@ -28,6 +29,9 @@ class MySpider(scrapy.Spider):
         for url in self.start_urls:
             yield SplashRequest(url=url, callback=self.parse,
                         endpoint='execute',
+                        splash_headers={
+                            'Authorization': basic_auth_header(self.settings['SPLASH_APIKEY'], ''),
+                        },
                         args={
                             "wait":3,
                             'lua_source': self.LUA_SOURCE,
@@ -51,6 +55,9 @@ class MySpider(scrapy.Spider):
             #yield scrapy.Request(result, callback=self.parse2)
             yield SplashRequest(url=result, callback=self.parse2,
                         endpoint='execute',
+                        splash_headers={
+                            'Authorization': basic_auth_header(self.settings['SPLASH_APIKEY'], ''),
+                        },
                         args={
                             "wait":3,
                             'lua_source': self.LUA_SOURCE,
