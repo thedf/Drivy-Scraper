@@ -40,6 +40,6 @@ function main(splash)
     end)
 
     assert (splash:go(splash.args.url))
-	assert (splash:wait(3))
+	assert (splash:wait(10))
     return splash:html()
 end
