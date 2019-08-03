@@ -61,7 +61,7 @@ class MySpider(scrapy.Spider):
                     )
         if (thisPage != numPages):
             argumentForNextPage=self.start_urls[0]+'&page='+str(thisPage+1)
-            #time.sleep(20)
+
             yield SplashRequest(url=argumentForNextPage, callback=self.parse,
                         endpoint='execute',
                         args={
@@ -80,6 +80,7 @@ class MySpider(scrapy.Spider):
         nom_prop = response.xpath('//span[@class="link_no_style js_drk_lnk"]/text()').get()
         if (nom_prop == None):
             yield {"content":response.body.decode("utf-8")}
+
         userProfile = response.xpath('//a[@class="car_owner_section"]/@href').get()
             
         
@@ -103,7 +104,6 @@ class MySpider(scrapy.Spider):
         
         price = response.xpath('//div[@class="cobalt-text-titleLarge js_price_value"]/text()').get()
         if (price == None):
-            #yield {"content":response.body.decode("utf-8")}
             price = float(response.xpath('//div[@class="js_default_price"]/span/text()').get().split("€")[0])
             
         else :
@@ -131,18 +131,6 @@ class MySpider(scrapy.Spider):
         counter = response.xpath('//div[@class="car_technical_features__features_group"][1]/div[2]/p/text()').get()
 
         boite = response.xpath('//div[@class="car_technical_features__features_group"][2]/div/p/text()').get()
-
-        """
-        evaluationNumberP = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[3]/div/span/div[2]/div[2]/div/div[2]/div[1]/text()').get()
-        if (evaluationNumberP == None):
-            evaluationNumberP = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[2]/div/span/div[2]/div[2]/div/div[2]/div[1]/text()').get()
-            if (evaluationNumberP == None ):
-                evaluationNumberP = 0
-            else :
-                evaluationNumberP = int (evaluationNumberP)
-        else :
-            evaluationNumberP = int(evaluationNumberP)
-        """
 
         evaluationNumber = response.xpath('//span[@class="car_card__ratings_count"]/text()').get() 
         if (evaluationNumber == None):
@@ -199,7 +187,22 @@ class MySpider(scrapy.Spider):
             rentalsNumber = 0
         else :
             rentalsNumber = int(rentalsNumber)
+        
+        ratingProp = response.xpath('//div[@class="col-sm-4 col-xs-12 no-outer-gutter-xs"]/span[@itemprop="ratingValue"]/text()').get()
+        if (ratingProp == None):
+            ratingProp = 0.0
+        else :
+            ratingProp = float(ratingProp)
+
+        evaluationNumberP =response.xpath('//div[@class="col-sm-4 col-xs-12 no-outer-gutter-xs"]/div[@itemprop="cobalt-text-body cobalt-text--subdued"]/text()').get()
+        if (evaluationNumberP == None):
+            evaluationNumberP = 0
+        else :
+            evaluationNumberP = int(evaluationNumberP.split(' ')[0])
+         
+
         mydict['nombre_location_proprio'] = rentalsNumber
         mydict['date_debut_loc_proprio']  = dateCreation
-
+        mydict['note_proprio']  = ratingProp
+        mydict['nombre_eval_proprio']  = evaluationNumberP
         yield mydict
