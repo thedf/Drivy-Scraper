@@ -34,10 +34,10 @@ class MySpider(scrapy.Spider):
                         },
                         args={
                             'lua_source': self.LUA_SOURCE,
-                            'crawlera_user': self.settings['e49ba384b4e94d04bef21798f0bdc5e4'],
+                            'crawlera_user': self.settings['e49ba384b4e94d04bef21798f0bdc5e4']
                         },
                         # tell Splash to cache the lua script, to avoid sending it for every request
-                        cache_args=['lua_source'],
+                        cache_args=['lua_source']
                     )
 
     def parse(self, response):
@@ -59,10 +59,10 @@ class MySpider(scrapy.Spider):
                         },
                         args={
                             'lua_source': self.LUA_SOURCE,
-                            'crawlera_user': self.settings['e49ba384b4e94d04bef21798f0bdc5e4'],
+                            'crawlera_user': self.settings['e49ba384b4e94d04bef21798f0bdc5e4']
                         },
                         # tell Splash to cache the lua script, to avoid sending it for every request
-                        cache_args=['lua_source'],
+                        cache_args=['lua_source']
                     )
         if (thisPage != numPages):
             argumentForNextPage=self.start_urls[0]+'&page='+str(thisPage+1)
