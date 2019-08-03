@@ -40,6 +40,10 @@ function main(splash)
     end)
 
     splash:go(splash.args.url)
-    splash:wait(3)
+    function wait_for(splash, condition)
+        while not condition() do
+            splash:wait(3)
+        end
+    end
     return splash:html()
 end
