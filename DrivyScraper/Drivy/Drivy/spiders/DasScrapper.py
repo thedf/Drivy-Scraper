@@ -20,6 +20,9 @@ class MySpider(scrapy.Spider):
       self.LUA_SOURCE = pkgutil.get_data(
             'Drivy', 'scripts/crawlera.lua'
         ).decode('utf-8')
+      self.LUA_SOURCE_CAR = pkgutil.get_data(
+            'Drivy', 'scripts/crawleraCar.lua'
+        ).decode('utf-8')
 
     def start_requests(self):
         """
@@ -47,12 +50,10 @@ class MySpider(scrapy.Spider):
         result=""
         for pick in picks :
             result="https://www.drivy.com"+pick.css("a").attrib['href']
-            #time.sleep(5)
-            #yield scrapy.Request(result, callback=self.parse2)
             yield SplashRequest(url=result, callback=self.parse2,
                         endpoint='execute',
                         args={
-                            'lua_source': self.LUA_SOURCE,
+                            'lua_source': self.LUA_LUA_SOURCE_CARSOURCE,
                             'timeout': 3600
                         },
                         # tell Splash to cache the lua script, to avoid sending it for every request
@@ -61,7 +62,16 @@ class MySpider(scrapy.Spider):
         if (thisPage != numPages):
             argumentForNextPage=self.start_urls[0]+'&page='+str(thisPage+1)
             #time.sleep(20)
-            yield SplashRequest(url=argumentForNextPage, callback=self.parse,args={"wait":3})
+            yield SplashRequest(url=argumentForNextPage, callback=self.parse,
+                        endpoint='execute',
+                        args={
+                            'lua_source': self.LUA_SOURCE,
+                            'timeout': 3600
+                        },
+                        # tell Splash to cache the lua script, to avoid sending it for every request
+                        cache_args=['lua_source']
+                    )
+                    
         #yield {"content":response.body.decode("utf-8")}
     def parse2(self, response): 
         """
