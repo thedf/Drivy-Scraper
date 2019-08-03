@@ -198,7 +198,7 @@ class MySpider(scrapy.Spider):
         if (evaluationNumberP == None):
             evaluationNumberP = 0
         else :
-            evaluationNumberP = int(evaluationNumberP.split(' ')[0])
+            evaluationNumberP = int(evaluationNumberP.split(' ')[0].strip())
          
 
         mydict['nombre_location_proprio'] = rentalsNumber
