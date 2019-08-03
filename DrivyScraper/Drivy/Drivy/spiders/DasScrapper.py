@@ -27,15 +27,10 @@ class MySpider(scrapy.Spider):
         So this calls the first url (the search url)
         """
         for url in self.start_urls:
-            yield SplashRequest(url=url, callback=self.parse,
-                        endpoint='execute',
-                        args={
-                            'lua_source': self.LUA_SOURCE,
-                            'apikey': self.settings['e49ba384b4e94d04bef21798f0bdc5e4']
-                        },
-                        # tell Splash to cache the lua script, to avoid sending it for every request
-                        cache_args=['lua_source']
+            request =  SplashRequest(url=url, callback=self.parse,
                     )
+            request.meta['splash']['args']['proxy'] = "http://e49ba384b4e94d04bef21798f0bdc5e4:@proxy.crawlera.com:8010"
+            yield request
 
     def parse(self, response):
         content = response.xpath('//*[@id="js_picks"]/div[6]/div/div[2]/div[3]/div/div[2]/div[2]')
@@ -49,15 +44,10 @@ class MySpider(scrapy.Spider):
             result="https://www.drivy.com"+pick.css("a").attrib['href']
             #time.sleep(5)
             #yield scrapy.Request(result, callback=self.parse2)
-            yield SplashRequest(url=result, callback=self.parse2,
-                        endpoint='execute',
-                        args={
-                            'lua_source': self.LUA_SOURCE,
-                            'apikey': self.settings['e49ba384b4e94d04bef21798f0bdc5e4']
-                        },
-                        # tell Splash to cache the lua script, to avoid sending it for every request
-                        cache_args=['lua_source']
+            request =  SplashRequest(url=result, callback=self.parse2,
                     )
+            request.meta['splash']['args']['proxy'] = "http://e49ba384b4e94d04bef21798f0bdc5e4:@proxy.crawlera.com:8010"
+            yield request
         if (thisPage != numPages):
             argumentForNextPage=self.start_urls[0]+'&page='+str(thisPage+1)
             #time.sleep(20)
