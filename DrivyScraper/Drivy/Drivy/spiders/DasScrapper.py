@@ -20,16 +20,21 @@ class MySpider(scrapy.Spider):
       self.LUA_SOURCE = pkgutil.get_data(
             'Drivy', 'scripts/crawlera.lua'
         ).decode('utf-8')
-
+        
     def start_requests(self):
         """
         This function starts the first request and the first action to do when the script is called.
         So this calls the first url (the search url)
         """
         for url in self.start_urls:
-            request =  SplashRequest(url=url, callback=self.parse,args={"wait":3, 'timeout': 3600} )
-            request.meta['splash']['args']['proxy'] = "http://e49ba384b4e94d04bef21798f0bdc5e4:@proxy.crawlera.com:8010"
-            yield request
+            yield SplashRequest(url=url, callback=self.parse,
+                        endpoint='execute',
+                        args={
+                            'lua_source': self.LUA_SOURCE
+                        },
+                        # tell Splash to cache the lua script, to avoid sending it for every request
+                        cache_args=['lua_source']
+                    )
 
     def parse(self, response):
         content = response.xpath('//*[@id="js_picks"]/div[6]/div/div[2]/div[3]/div/div[2]/div[2]')
@@ -43,13 +48,18 @@ class MySpider(scrapy.Spider):
             result="https://www.drivy.com"+pick.css("a").attrib['href']
             #time.sleep(5)
             #yield scrapy.Request(result, callback=self.parse2)
-            request =  SplashRequest(url=result, callback=self.parse2,args={"wait":3, 'timeout': 3600})
-            request.meta['splash']['args']['proxy'] = "http://e49ba384b4e94d04bef21798f0bdc5e4:@proxy.crawlera.com:8010"
-            yield request
+            yield SplashRequest(url=result, callback=self.parse2,
+                        endpoint='execute',
+                        args={
+                            'lua_source': self.LUA_SOURCE
+                        },
+                        # tell Splash to cache the lua script, to avoid sending it for every request
+                        cache_args=['lua_source']
+                    )
         if (thisPage != numPages):
             argumentForNextPage=self.start_urls[0]+'&page='+str(thisPage+1)
             #time.sleep(20)
-            yield SplashRequest(url=argumentForNextPage, callback=self.parse,args={"wait":3, 'timeout': 3600})
+            yield SplashRequest(url=argumentForNextPage, callback=self.parse,args={"wait":3})
         #yield {"content":response.body.decode("utf-8")}
     def parse2(self, response): 
         """

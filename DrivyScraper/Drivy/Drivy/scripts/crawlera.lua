@@ -3,7 +3,7 @@ function main(splash)
     -- begin example from crawlera docs
     local host = "proxy.crawlera.com"
     local port = 8010
-    local user = splash.args.apikey
+    local user = "e49ba384b4e94d04bef21798f0bdc5e4"
     local password = ""
     local session_header = "X-Crawlera-Session"
     local session_id = "create"
