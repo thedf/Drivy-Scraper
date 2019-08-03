@@ -104,6 +104,7 @@ class MySpider(scrapy.Spider):
         price = response.xpath('//div[@class="cobalt-text-titleLarge js_price_value"]/text()').get()
         if (price == None):
             price = float(response.xpath('//span[@class="cobalt-text-titleLarge js_price_value"]/text()').get().split("€")[0])
+            yield {"content":response.body.decode("utf-8")}
         else :
             price = float(price.split("€")[0])
 
