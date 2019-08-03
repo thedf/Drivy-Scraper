@@ -52,7 +52,7 @@ class MySpider(scrapy.Spider):
             yield SplashRequest(url=result, callback=self.parse2,
                         endpoint='execute',
                         args={
-                            'lua_source': self.LUA_SOURCE
+                            'lua_source': self.LUA_SOURCE,
                             'timeout':3600
                         },
                         # tell Splash to cache the lua script, to avoid sending it for every request
