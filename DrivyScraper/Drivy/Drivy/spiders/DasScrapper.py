@@ -67,7 +67,7 @@ class MySpider(scrapy.Spider):
     def parse2(self, response): 
         """
         this function is called to parse data out of the cars' pages
-        """     
+             
         nom_prop = response.xpath('//span[@class="link_no_style js_drk_lnk"]/text()').get()
         
         userProfile = response.xpath('//a[@class="car_owner_section"]/@href').get()
@@ -116,7 +116,7 @@ class MySpider(scrapy.Spider):
 
         boite = response.xpath('//div[@class="car_technical_features__features_group"][2]/div/p/text()').get()
 
-        """
+        '''
         evaluationNumberP = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[3]/div/span/div[2]/div[2]/div/div[2]/div[1]/text()').get()
         if (evaluationNumberP == None):
             evaluationNumberP = response.xpath('//*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[2]/div/span/div[2]/div[2]/div/div[2]/div[1]/text()').get()
@@ -126,7 +126,7 @@ class MySpider(scrapy.Spider):
                 evaluationNumberP = int (evaluationNumberP)
         else :
             evaluationNumberP = int(evaluationNumberP)
-        """
+        '''
 
         evaluationNumber = response.xpath('//span[@class="car_card__ratings_count"]/text()').get() 
         if (evaluationNumber == None):
@@ -167,7 +167,8 @@ class MySpider(scrapy.Spider):
         yield request 
         #x = self.mycol.insert_one(mydict)
         #yield mydict
-        
+        """
+        yield {"content":response.body.decode("utf-8")}
 
     def parse3(self, response):
         item = response.meta['item']
