@@ -170,7 +170,6 @@ class MySpider(scrapy.Spider):
         request.meta['proxy'] = "e49ba384b4e94d04bef21798f0bdc5e4:@proxy.crawlera.com:8010"
         request.meta['item'] = item
         yield request 
-        #x = self.mycol.insert_one(mydict)
         #yield mydict
         
 
@@ -198,6 +197,8 @@ class MySpider(scrapy.Spider):
         evaluationNumberP =response.xpath('//div[@class="col-sm-4 col-xs-12 no-outer-gutter-xs"]/div/div[2]/div/div[2]/div[2]/text()').get()
         if (evaluationNumberP == None):
             evaluationNumberP = 0
+        if ("Une évaluation" in evaluationNumberP.strip() ):
+            evaluationNumberP = 1
         else :
             evaluationNumberP = int(evaluationNumberP.split(' ')[0].strip())
          
@@ -206,4 +207,5 @@ class MySpider(scrapy.Spider):
         mydict['date_debut_loc_proprio']  = dateCreation
         mydict['note_proprio']  = ratingProp
         mydict['nombre_eval_proprio']  = evaluationNumberP
-        yield mydict
+        x = self.mycol.insert_one(mydict)
+        yield {"sucess" : mydict['url_annonce']}
