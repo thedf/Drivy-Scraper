@@ -29,12 +29,9 @@ class MySpider(scrapy.Spider):
         for url in self.start_urls:
             yield SplashRequest(url=url, callback=self.parse,
                         endpoint='execute',
-                        splash_headers={
-                            'Authorization': basic_auth_header(self.settings['SPLASH_APIKEY'], ''),
-                        },
                         args={
                             'lua_source': self.LUA_SOURCE,
-                            'crawlera_user': self.settings['e49ba384b4e94d04bef21798f0bdc5e4']
+                            'apikey': self.settings['e49ba384b4e94d04bef21798f0bdc5e4']
                         },
                         # tell Splash to cache the lua script, to avoid sending it for every request
                         cache_args=['lua_source']
@@ -54,12 +51,9 @@ class MySpider(scrapy.Spider):
             #yield scrapy.Request(result, callback=self.parse2)
             yield SplashRequest(url=result, callback=self.parse2,
                         endpoint='execute',
-                        splash_headers={
-                            'Authorization': basic_auth_header(self.settings['SPLASH_APIKEY'], ''),
-                        },
                         args={
                             'lua_source': self.LUA_SOURCE,
-                            'crawlera_user': self.settings['e49ba384b4e94d04bef21798f0bdc5e4']
+                            'apikey': self.settings['e49ba384b4e94d04bef21798f0bdc5e4']
                         },
                         # tell Splash to cache the lua script, to avoid sending it for every request
                         cache_args=['lua_source']
