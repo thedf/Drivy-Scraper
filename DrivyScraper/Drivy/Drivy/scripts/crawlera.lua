@@ -39,11 +39,7 @@ function main(splash)
         end
     end)
 
-    splash:go(splash.args.url)
-    function wait_for(splash, condition)
-        while not condition() do
-            splash:wait(3)
-        end
-    end
+    assert (splash:go(splash.args.url))
+	assert (splash:wait(0.5))
     return splash:html()
 end
