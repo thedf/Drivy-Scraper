@@ -20,7 +20,7 @@ class MySpider(scrapy.Spider):
       self.LUA_SOURCE = pkgutil.get_data(
             'Drivy', 'scripts/crawlera.lua'
         ).decode('utf-8')
-        
+
     def start_requests(self):
         """
         This function starts the first request and the first action to do when the script is called.
@@ -30,7 +30,8 @@ class MySpider(scrapy.Spider):
             yield SplashRequest(url=url, callback=self.parse,
                         endpoint='execute',
                         args={
-                            'lua_source': self.LUA_SOURCE
+                            'lua_source': self.LUA_SOURCE,
+                            'timeout':3600
                         },
                         # tell Splash to cache the lua script, to avoid sending it for every request
                         cache_args=['lua_source']
@@ -51,7 +52,8 @@ class MySpider(scrapy.Spider):
             yield SplashRequest(url=result, callback=self.parse2,
                         endpoint='execute',
                         args={
-                            'lua_source': self.LUA_SOURCE
+                            'lua_source': self.LUA_SOURCE,
+                            'timeout':3600
                         },
                         # tell Splash to cache the lua script, to avoid sending it for every request
                         cache_args=['lua_source']
