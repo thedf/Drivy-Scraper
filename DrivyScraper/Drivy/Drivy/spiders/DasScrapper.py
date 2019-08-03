@@ -101,7 +101,11 @@ class MySpider(scrapy.Spider):
         else :
             numbrePlaces = int(numbrePlaces.split(" ")[0])
         
-        price = float(response.xpath('//div[@class="cobalt-text-titleLarge js_price_value"]/text()').get().split("€")[0])
+        price = response.xpath('//div[@class="cobalt-text-titleLarge js_price_value"]/text()').get()
+        if (price == None):
+            price = float(response.xpath('//span[@class="cobalt-text-titleLarge js_price_value"]/text()').get().split("€")[0])
+        else :
+            price = float(price.split("€")[0])
 
         carName = response.xpath('//h1[@class="car_info_header__title js_car_name"]/text()').get()
 
