@@ -1,6 +1,4 @@
--- myscript.lua
-function main(splash, args)
-    -- begin example from crawlera docs
+function main(splash)
     local host = "proxy.crawlera.com"
     local port = 8010
     local user = "e49ba384b4e94d04bef21798f0bdc5e4"
@@ -9,10 +7,30 @@ function main(splash, args)
     local session_id = "create"
 
     splash:on_request(function (request)
+        if string.find(request.url, 'doubleclick%.net') or
+           string.find(request.url, 'analytics%.google%.com') or
+        	 string.find(request.url, 'drivy.imgix.net') or
+        	 string.find(request.url, 'googletagmanager.com') or
+           string.find(request.url, 'google-analytics.com') or
+           string.find(request.url, 'facebook.com')	
+        
+        
+        
+        then
+            request.abort()
+            return
+        end
+
+        -- Avoid using Crawlera for subresources fetching to increase crawling
+        -- speed. The example below avoids using Crawlera for URLS starting
+        -- with 'static.' and the ones ending with '.png'.
+        if string.find(request.url, '://static%.') ~= nil or
+           string.find(request.url, '%.png$') ~= nil then
+            return
+        end
         --request:set_header("X-Crawlera-UA", "desktop")
         request:set_header(session_header, session_id)
         request:set_proxy{host, port, username=user, password=password}
-        request:set_header('X-Crawlera-Timeout', 40000)
     end)
 
     splash:on_response_headers(function (response)
@@ -20,25 +38,7 @@ function main(splash, args)
             session_id = response.headers[session_header]
         end
     end)
-    -- end example from crawlera docs
 
-    -- customized render script inspired by scrapy-splash examples
-    splash:init_cookies(splash.args.cookies)
-    assert(splash:go{
-        splash.args.url,
-        headers=splash.args.headers,
-        http_method=splash.args.http_method,
-        body=splash.args.body,
-    })
-    assert(splash:wait(0.5))
-
-    local entries = splash:history()
-    local last_response = entries[#entries].response
-    return {
-        url = splash:url(),
-        headers = last_response.headers,
-        http_status = last_response.status,
-        cookies = splash:get_cookies(),
-        html = splash:html(),
-    }
+    splash:go(splash.args.url)
+    return splash:html()
 end
