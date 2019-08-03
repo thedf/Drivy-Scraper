@@ -1,5 +1,5 @@
 -- myscript.lua
-function main(splash)
+function main(splash, args)
     -- begin example from crawlera docs
     local host = "proxy.crawlera.com"
     local port = 8010
