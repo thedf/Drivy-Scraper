@@ -5,7 +5,7 @@ import pymongo
 import time
 import random
 import pkgutil
-from w3lib import basic_auth_header
+from w3lib.http import basic_auth_header
 class MySpider(scrapy.Spider):
     name = "DasScrapper"
     start_urls = ["google.com"]
