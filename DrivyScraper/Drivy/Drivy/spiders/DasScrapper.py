@@ -33,7 +33,6 @@ class MySpider(scrapy.Spider):
                             'Authorization': basic_auth_header(self.settings['SPLASH_APIKEY'], ''),
                         },
                         args={
-                            "wait":3,
                             'lua_source': self.LUA_SOURCE,
                             'crawlera_user': self.settings['e49ba384b4e94d04bef21798f0bdc5e4'],
                         },
@@ -59,7 +58,6 @@ class MySpider(scrapy.Spider):
                             'Authorization': basic_auth_header(self.settings['SPLASH_APIKEY'], ''),
                         },
                         args={
-                            "wait":3,
                             'lua_source': self.LUA_SOURCE,
                             'crawlera_user': self.settings['e49ba384b4e94d04bef21798f0bdc5e4'],
                         },
