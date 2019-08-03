@@ -150,6 +150,15 @@ class MySpider(scrapy.Spider):
     def parse3(self, response):
         item = response.meta['item']
         mydict = item['mydict'] 
-        mydict['date_debut_loc_proprio'] = response.xpath('//div[@class="cobalt-Card user_card cobalt-mb"]/div[3]/div/text()').get().split(' ')[3]
-        mydict['nombre_location_proprio'] = response.xpath('//div[@class="cobalt-Card user_card cobalt-mb"]/div[2]/div/div[1]/div[1]/text()').get()
+        dateCreation = response.xpath('//div[@class="cobalt-Card user_card cobalt-mb"]/div[3]/div/text()').get()
+        if (dateCreation == None ):
+            dateCreation = "00/00/00"
+        else :
+            dateCreation = dateCreation.split(' ')[3].strip()
+
+        rentalsNumber = response.xpath('//div[@class="cobalt-Card user_card cobalt-mb"]/div[2]/div/div[1]/div[1]/text()[2]').get()
+
+        mydict['nombre_location_proprio'] = rentalsNumber
+        mydict['date_debut_loc_proprio']  = dateCreation
+        
         yield mydict
