@@ -28,7 +28,7 @@ function main(splash)
             return
         end
         --request:set_header("X-Crawlera-UA", "desktop")
-        request:set_header(session_header, session_id)
+        --request:set_header(session_header, session_id)
         request:set_proxy{host, port, username=user, password=password}
     end)
 
