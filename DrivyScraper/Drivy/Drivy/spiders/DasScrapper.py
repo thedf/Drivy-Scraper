@@ -4,6 +4,7 @@ from .. import items
 import pymongo
 import time
 import random
+import pkgutil
 class MySpider(scrapy.Spider):
     name = "DasScrapper"
     start_urls = ["google.com"]
