@@ -5,7 +5,7 @@ function main(splash)
     local password = ""
     local session_header = "X-Crawlera-Session"
     local session_id = "create"
-    splash:wait(0.5)
+    splash:wait(3)
     splash:on_request(function (request)
         if string.find(request.url, 'doubleclick%.net') or
            string.find(request.url, 'analytics%.google%.com') or
