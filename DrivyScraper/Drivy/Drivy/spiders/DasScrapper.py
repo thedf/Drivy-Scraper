@@ -130,7 +130,7 @@ class MySpider(scrapy.Spider):
                 'note': rating ,
                 'url_annonce':  response.url,
                 'adresse_proximitee': adress ,
-                'preavi_minimum': 	priaviMinimum ,
+                'preavi_minimum': 	priaviMinimum.strip() ,
                 'moteur': motorType  ,
                 'compteur':  counter ,
                 'boite': 	 boite ,
@@ -157,8 +157,11 @@ class MySpider(scrapy.Spider):
             dateCreation = dateCreation.split(' ')[3].strip()
 
         rentalsNumber = response.xpath('//div[@class="cobalt-Card user_card cobalt-mb"]/div[2]/div/div[1]/div[1]/text()[2]').get()
-
+        if (rentalsNumber == None):
+            rentalsNumber = 0
+        else :
+            rentalsNumber = int(rentalsNumber)
         mydict['nombre_location_proprio'] = rentalsNumber
         mydict['date_debut_loc_proprio']  = dateCreation
-        
+
         yield mydict
