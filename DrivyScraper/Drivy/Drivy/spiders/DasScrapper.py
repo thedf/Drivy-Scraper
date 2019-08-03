@@ -188,13 +188,13 @@ class MySpider(scrapy.Spider):
         else :
             rentalsNumber = int(rentalsNumber)
         
-        ratingProp = response.xpath('//div[@class="col-sm-4 col-xs-12 no-outer-gutter-xs"]/div/div[2]/div/div[2]/span/text()').get()
+        ratingProp = response.xpath('//div[@class="col-sm-4 col-xs-12 no-outer-gutter-xs"]/div/div[2]/div/div[2]/div[1]/span[1]/text()').get()
         if (ratingProp == None):
             ratingProp = 0.0
         else :
             ratingProp = float(ratingProp)
-
-        evaluationNumberP =response.xpath('//div[@class="col-sm-4 col-xs-12 no-outer-gutter-xs"]/div/div[2]/div/div[2]/text()').get()
+            
+        evaluationNumberP =response.xpath('//div[@class="col-sm-4 col-xs-12 no-outer-gutter-xs"]/div/div[2]/div/div[2]/div[2]/text()').get()
         if (evaluationNumberP == None):
             evaluationNumberP = 0
         #else :
