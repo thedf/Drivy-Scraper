@@ -197,7 +197,7 @@ class MySpider(scrapy.Spider):
         evaluationNumberP =response.xpath('//div[@class="col-sm-4 col-xs-12 no-outer-gutter-xs"]/div/div[2]/div/div[2]/div[2]/text()').get()
         if (evaluationNumberP == None):
             evaluationNumberP = 0
-        if ("Une évaluation" in evaluationNumberP.strip() ):
+        elif ("Une évaluation" in evaluationNumberP.strip() ):
             evaluationNumberP = 1
         else :
             evaluationNumberP = int(evaluationNumberP.split(' ')[0].strip())
