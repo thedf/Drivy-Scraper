@@ -30,14 +30,14 @@ class MySpider(scrapy.Spider):
             yield SplashRequest(url=url, callback=self.parse,
                         endpoint='execute',
                         args={
-                            'lua_source': self.LUA_SOURCE,
-                            'timeout':3600
+                            'lua_source': self.LUA_SOURCE
                         },
                         # tell Splash to cache the lua script, to avoid sending it for every request
                         cache_args=['lua_source']
                     )
 
     def parse(self, response):
+        """
         content = response.xpath('//*[@id="js_picks"]/div[6]/div/div[2]/div[3]/div/div[2]/div[2]')
         pages=response.xpath('//*[@id="js_search_paginator"]/div/text()').get()
         pageSplit=pages.split(' ')
@@ -52,8 +52,7 @@ class MySpider(scrapy.Spider):
             yield SplashRequest(url=result, callback=self.parse2,
                         endpoint='execute',
                         args={
-                            'lua_source': self.LUA_SOURCE,
-                            'timeout':3600
+                            'lua_source': self.LUA_SOURCE
                         },
                         # tell Splash to cache the lua script, to avoid sending it for every request
                         cache_args=['lua_source']
@@ -62,8 +61,8 @@ class MySpider(scrapy.Spider):
             argumentForNextPage=self.start_urls[0]+'&page='+str(thisPage+1)
             #time.sleep(20)
             yield SplashRequest(url=argumentForNextPage, callback=self.parse,args={"wait":3})
-        
-        #yield {"content":response.body.decode("utf-8")}
+        """
+        yield {"content":response.body.decode("utf-8")}
     def parse2(self, response): 
         """
         this function is called to parse data out of the cars' pages
