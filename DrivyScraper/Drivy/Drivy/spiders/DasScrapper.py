@@ -31,7 +31,7 @@ class MySpider(scrapy.Spider):
                         endpoint='execute',
                         args={
                             'lua_source': self.LUA_SOURCE,
-                            'apikey': self.settings['e49ba384b4e94d04bef21798f0bdc5e4:']
+                            'apikey': self.settings['e49ba384b4e94d04bef21798f0bdc5e4']
                         },
                         # tell Splash to cache the lua script, to avoid sending it for every request
                         cache_args=['lua_source']
@@ -53,7 +53,7 @@ class MySpider(scrapy.Spider):
                         endpoint='execute',
                         args={
                             'lua_source': self.LUA_SOURCE,
-                            'apikey': self.settings['e49ba384b4e94d04bef21798f0bdc5e4:']
+                            'apikey': self.settings['e49ba384b4e94d04bef21798f0bdc5e4']
                         },
                         # tell Splash to cache the lua script, to avoid sending it for every request
                         cache_args=['lua_source']
