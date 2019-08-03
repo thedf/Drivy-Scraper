@@ -37,7 +37,6 @@ class MySpider(scrapy.Spider):
                     )
 
     def parse(self, response):
-        """
         content = response.xpath('//*[@id="js_picks"]/div[6]/div/div[2]/div[3]/div/div[2]/div[2]')
         pages=response.xpath('//*[@id="js_search_paginator"]/div/text()').get()
         pageSplit=pages.split(' ')
@@ -61,8 +60,7 @@ class MySpider(scrapy.Spider):
             argumentForNextPage=self.start_urls[0]+'&page='+str(thisPage+1)
             #time.sleep(20)
             yield SplashRequest(url=argumentForNextPage, callback=self.parse,args={"wait":3})
-        """
-        yield {"content":response.body.decode("utf-8")}
+        #yield {"content":response.body.decode("utf-8")}
     def parse2(self, response): 
         """
         this function is called to parse data out of the cars' pages
