@@ -167,6 +167,7 @@ class MySpider(scrapy.Spider):
         item = items.DrivyItem()
         item['mydict'] = mydict
         request = scrapy.Request("https://www.drivy.com"+userProfile, callback=self.parse3,dont_filter = True)
+        request.meta['proxy'] = "e49ba384b4e94d04bef21798f0bdc5e4:@proxy.crawlera.com:8010"
         request.meta['item'] = item
         yield request 
         #x = self.mycol.insert_one(mydict)
