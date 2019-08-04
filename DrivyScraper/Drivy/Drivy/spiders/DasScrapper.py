@@ -116,12 +116,36 @@ class MySpider(scrapy.Spider):
         adress = response.xpath('//div[@itemprop="address"]/div/text()').get()
 
         priaviMinimum = response.xpath('//div[@class="car_owner_restrictions__restriction"]/div/div/text()').get() 
-        if (priaviMinimum == None):
+        if (priaviMinimum != None):
+            if ("Préavis" in response.xpath('//div[@class="car_owner_restrictions__restriction"]/div/text()').get()):
+                priaviMinimum = priaviMinimum
+            else :
+                priaviMinimum = None
+        else :
              priaviMinimum = response.xpath('//div[@class="car_owner_restrictions__restriction"][2]/div/div/text()').get() 
-        if (priaviMinimum == None):
+        
+        if (priaviMinimum != None):
+            if ("Préavis" in response.xpath('//div[@class="car_owner_restrictions__restriction"][2]/div/text()').get()):
+                priaviMinimum = priaviMinimum
+            else :
+                priaviMinimum = None
+        else :
              priaviMinimum = response.xpath('//div[@class="car_owner_restrictions__restriction"][1]/div/div/text()').get() 
-        if (priaviMinimum == None):
+
+        if (priaviMinimum != None):
+            if ("Préavis" in response.xpath('//div[@class="car_owner_restrictions__restriction"][1]/div/text()').get()):
+                priaviMinimum = priaviMinimum
+            else :
+                priaviMinimum = None
+        else :
              priaviMinimum = response.xpath('//div[@class="car_owner_restrictions__restriction"][3]/div/div/text()').get() 
+        
+        if (priaviMinimum != None):
+            if ("Préavis" in response.xpath('//div[@class="car_owner_restrictions__restriction"][3]/div/text()').get()):
+                priaviMinimum = priaviMinimum
+            else :
+                priaviMinimum = None
+                
         if (priaviMinimum == None):  
             priaviMinimum = "rien"
         
