@@ -8,8 +8,7 @@ CLI=argparse.ArgumentParser()
 
 CLI.add_argument(
   "-places",  # name on the CLI - drop the `--` for positional/required parameters
-  nargs="*",  # 0 or more values expected => creates a list
-  type=str,
+  nargs="+",  # 0 or more values expected => creates a list
   default=[],  # default if nothing is provided
 )
 CLI.add_argument(
