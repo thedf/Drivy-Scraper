@@ -104,6 +104,10 @@ and run the script
 ```
 python run.py -places "Gare de Massy - Palaiseau" "Paris"
 ```
+if the script isn't excutable try 
+```
+chmod +x run.py
+```
 ### To change MongoDB Database
 
 go to Scrap/DrivyScraper/Drivy/Drivy/spiders/DasScrapper.py
