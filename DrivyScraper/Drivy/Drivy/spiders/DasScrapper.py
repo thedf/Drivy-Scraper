@@ -98,7 +98,7 @@ class MySpider(scrapy.Spider):
         if (thisPage != numPages):
             argumentForNextPage=self.start_urls[0]+'&page='+str(thisPage+1)
 
-            yield SplashRequest(url=argumentForNextPage, callback=self.parse,
+            yield SplashRequest(url=argumentForNextPage, callback=self.parseSearchPage,
                         endpoint='execute',
                         args={
                             'lua_source': self.LUA_SOURCE,
