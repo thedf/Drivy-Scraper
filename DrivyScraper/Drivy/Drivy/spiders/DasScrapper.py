@@ -297,4 +297,4 @@ class MySpider(scrapy.Spider):
         x = self.mycol.insert_one(mydict)
 
         #Printing a sucess json into output for Logging (this isn't sent to the DB)
-        yield {"sucess" : mydict['url_annonce']}
+        yield mydict
