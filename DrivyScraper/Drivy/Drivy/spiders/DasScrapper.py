@@ -120,7 +120,7 @@ class MySpider(scrapy.Spider):
         for divPriavi in priaviMinimumList :
             if (divPriavi == None):
                 pass
-            elif ("Préavis" in divPriavi):
+            elif ("Préavis" in divPriavi.get()):
                 priaviMinimum = divPriavi.xpath('./div/div/text()').get()
         if (priaviMinimum == None):  
             priaviMinimum = "rien"
