@@ -115,7 +115,7 @@ class MySpider(scrapy.Spider):
 
         adress = response.xpath('//div[@itemprop="address"]/div/text()').get()
 
-        priaviMinimumList = response.xpath('//div[@class="car_owner_restrictions__restriction"]').extract() 
+        priaviMinimumList = response.xpath('//div[@class="car_owner_restrictions__restriction"]').getall() 
         priaviMinimum = None
         for divPriavi in priaviMinimumList :
             if (divPriavi == None):
