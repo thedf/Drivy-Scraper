@@ -76,7 +76,7 @@ Open a new shell into the server (a terminal locally) and run
 
 ```
 sudo docker pull scrapinghub/splash
-sudo docker run -p 8050:8050 scrapinghub/splash
+sudo docker run -p 8050:8050 scrapinghub/splash --max-timeout 3600
 ```
 and then close the terminal/shell
 
