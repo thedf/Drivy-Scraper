@@ -115,17 +115,13 @@ class MySpider(scrapy.Spider):
 
         adress = response.xpath('//div[@itemprop="address"]/div/text()').get()
 
-        priaviMinimumList =[ response.xpath('//div[@class="car_owner_restrictions__restriction"]/div').get() ,
-            response.xpath('//div[@class="car_owner_restrictions__restriction"][2]/div').get() ,
-            response.xpath('//div[@class="car_owner_restrictions__restriction"][1]/div').get() ,
-            response.xpath('//div[@class="car_owner_restrictions__restriction"][3]/div').get() 
-        ]
+        priaviMinimumList = response.xpath('//div[@class="car_owner_restrictions__restriction"]').extract() 
         priaviMinimum = None
         for divPriavi in priaviMinimumList :
             if (divPriavi == None):
                 pass
             elif ("Préavis" in divPriavi):
-                priaviMinimum = divPriavi.xpath('/div/text()').get()
+                priaviMinimum = divPriavi.xpath('//div/div/text()').get()
         if (priaviMinimum == None):  
             priaviMinimum = "rien"
             
