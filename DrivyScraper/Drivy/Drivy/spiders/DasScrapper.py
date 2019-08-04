@@ -115,40 +115,45 @@ class MySpider(scrapy.Spider):
 
         adress = response.xpath('//div[@itemprop="address"]/div/text()').get()
 
+        pvFlaf = False
         priaviMinimum = response.xpath('//div[@class="car_owner_restrictions__restriction"]/div/div/text()').get() 
         if (priaviMinimum != None):
             if ("Préavis" in response.xpath('//div[@class="car_owner_restrictions__restriction"]/div/text()').get()):
                 priaviMinimum = priaviMinimum
+                pvFlaf = True
             else :
                 priaviMinimum = None
         else :
              priaviMinimum = response.xpath('//div[@class="car_owner_restrictions__restriction"][2]/div/div/text()').get() 
         
-        if (priaviMinimum != None):
+        if (priaviMinimum != None and pvFlaf == False):
             if ("Préavis" in response.xpath('//div[@class="car_owner_restrictions__restriction"][2]/div/text()').get()):
                 priaviMinimum = priaviMinimum
+                pvFlaf = True
             else :
                 priaviMinimum = None
         else :
              priaviMinimum = response.xpath('//div[@class="car_owner_restrictions__restriction"][1]/div/div/text()').get() 
 
-        if (priaviMinimum != None):
+        if (priaviMinimum != None and pvFlaf == False ):
             if ("Préavis" in response.xpath('//div[@class="car_owner_restrictions__restriction"][1]/div/text()').get()):
                 priaviMinimum = priaviMinimum
+                pvFlaf = True
             else :
                 priaviMinimum = None
         else :
              priaviMinimum = response.xpath('//div[@class="car_owner_restrictions__restriction"][3]/div/div/text()').get() 
         
-        if (priaviMinimum != None):
+        if (priaviMinimum != None and pvFlaf == False ):
             if ("Préavis" in response.xpath('//div[@class="car_owner_restrictions__restriction"][3]/div/text()').get()):
                 priaviMinimum = priaviMinimum
+                pvFlaf = True
             else :
                 priaviMinimum = None
-                
+
         if (priaviMinimum == None):  
             priaviMinimum = "rien"
-        
+        pvFlaf = False
 
         motorType = response.xpath('//div[@class="car_technical_features__features_group"][1]/div[1]/p/text()').get()
 
