@@ -9,16 +9,19 @@ CLI=argparse.ArgumentParser()
 CLI.add_argument(
   "-places",  # name on the CLI - drop the `--` for positional/required parameters
   nargs="+",  # 0 or more values expected => creates a list
+  help='<Required> places',
   default=[],  # default if nothing is provided
 )
 CLI.add_argument(
   "-init",  # name on the CLI - drop the `--` for positional/required parameters
   type=str,
+  help='<Optional> inital date',
   default= str(date. today()+datetime.timedelta(days=1)),  # default if nothing is provided
 )
 CLI.add_argument(
   "-end",  # name on the CLI - drop the `--` for positional/required parameters
   type=str,
+  help='<Optional> final date',
   default= str(date. today()+datetime.timedelta(days=2)),  # default if nothing is provided
 )
 
