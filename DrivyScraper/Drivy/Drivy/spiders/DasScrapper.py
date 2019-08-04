@@ -117,7 +117,9 @@ class MySpider(scrapy.Spider):
 
         pvFlaf = False
         priaviMinimum = response.xpath('//div[@class="car_owner_restrictions__restriction"]/div/div/text()').get() 
+
         if (priaviMinimum != None):
+            yield {'preavis': response.xpath('//div[@class="car_owner_restrictions__restriction"]/div/text()').get() }
             if ("Préavis" in response.xpath('//div[@class="car_owner_restrictions__restriction"]/div/text()').get()):
                 priaviMinimum = priaviMinimum
                 pvFlaf = True
@@ -127,16 +129,17 @@ class MySpider(scrapy.Spider):
              priaviMinimum = response.xpath('//div[@class="car_owner_restrictions__restriction"][2]/div/div/text()').get() 
         
         if (priaviMinimum != None and pvFlaf == False):
+            yield {'preavis': response.xpath('//div[@class="car_owner_restrictions__restriction"][2]/div/text()').get() }
             if ("Préavis" in response.xpath('//div[@class="car_owner_restrictions__restriction"][2]/div/text()').get()):
                 priaviMinimum = priaviMinimum
                 pvFlaf = True
             else :
                 priaviMinimum = None
-                //*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[3]/div/div[2]/div/div[2]/div/div
         else :
              priaviMinimum = response.xpath('//div[@class="car_owner_restrictions__restriction"][1]/div/div/text()').get() 
 
         if (priaviMinimum != None and pvFlaf == False ):
+            yield {'preavis': response.xpath('//div[@class="car_owner_restrictions__restriction"][1]/div/text()').get() }
             if ("Préavis" in response.xpath('//div[@class="car_owner_restrictions__restriction"][1]/div/text()').get()):
                 priaviMinimum = priaviMinimum
                 pvFlaf = True
@@ -146,6 +149,7 @@ class MySpider(scrapy.Spider):
              priaviMinimum = response.xpath('//div[@class="car_owner_restrictions__restriction"][3]/div/div/text()').get() 
         
         if (priaviMinimum != None and pvFlaf == False ):
+            yield {'preavis': response.xpath('//div[@class="car_owner_restrictions__restriction"][3]/div/text()').get() }
             if ("Préavis" in response.xpath('//div[@class="car_owner_restrictions__restriction"][3]/div/text()').get()):
                 priaviMinimum = priaviMinimum
                 pvFlaf = True
@@ -155,7 +159,6 @@ class MySpider(scrapy.Spider):
         if (priaviMinimum == None):  
             priaviMinimum = "rien"
         pvFlaf = False
-        yield {'preavis': priaviMinimum }
         motorType = response.xpath('//div[@class="car_technical_features__features_group"][1]/div[1]/p/text()').get()
 
         counter = response.xpath('//div[@class="car_technical_features__features_group"][1]/div[2]/p/text()').get()
