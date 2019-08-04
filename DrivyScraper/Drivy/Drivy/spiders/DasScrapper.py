@@ -122,7 +122,9 @@ class MySpider(scrapy.Spider):
         ]
         priaviMinimum = None
         for divPriavi in priaviMinimumList :
-            if ("Préavis" in divPriavi):
+            if (divPriavi == None):
+                pass
+            elif ("Préavis" in divPriavi):
                 priaviMinimum = divPriavi.xpath('/div/text()').get()
         if (priaviMinimum == None):  
             priaviMinimum = "rien"
@@ -209,4 +211,5 @@ class MySpider(scrapy.Spider):
         mydict['note_proprio']  = ratingProp
         mydict['nombre_eval_proprio']  = evaluationNumberP
         x = self.mycol.insert_one(mydict)
-        yield {"sucess" : mydict['url_annonce']}
+        #yield {"sucess" : mydict['url_annonce']}
+        yield mydict
