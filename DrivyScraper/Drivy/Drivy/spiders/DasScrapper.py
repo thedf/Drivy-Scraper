@@ -132,6 +132,7 @@ class MySpider(scrapy.Spider):
                 pvFlaf = True
             else :
                 priaviMinimum = None
+                //*[@id="js_car_id"]/div[3]/div[1]/div[1]/div[3]/div/div[2]/div/div[2]/div/div
         else :
              priaviMinimum = response.xpath('//div[@class="car_owner_restrictions__restriction"][1]/div/div/text()').get() 
 
@@ -154,7 +155,7 @@ class MySpider(scrapy.Spider):
         if (priaviMinimum == None):  
             priaviMinimum = "rien"
         pvFlaf = False
-
+        yield {'preavis': priaviMinimum }
         motorType = response.xpath('//div[@class="car_technical_features__features_group"][1]/div[1]/p/text()').get()
 
         counter = response.xpath('//div[@class="car_technical_features__features_group"][1]/div[2]/p/text()').get()
