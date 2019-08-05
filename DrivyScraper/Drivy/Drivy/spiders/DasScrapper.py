@@ -207,6 +207,13 @@ class MySpider(scrapy.Spider):
         #Getting all the accessories of the car
         accessories = response.xpath('//div[@class="car_show_options__option_content"]/text()').extract()
 
+        #Getting rental numbers
+        rentalNumber = response.xpath('//div[@class="rentals_count"]/div[@class="statistics_value"]/text()').get()
+        if (rentalNumber == None):
+            rentalNumber = 0
+        else :
+            rentalNumber = int(rentalNumber)
+
         #Froming the dictionary of the infos scrapped from car's page
         mydict = {
                 "nom_voiture" : carName ,
@@ -224,7 +231,8 @@ class MySpider(scrapy.Spider):
                 'compteur':  counter ,
                 'boite': 	 boite ,
                 'nom_propriétaire': nom_prop,
-                'options_accessoires': accessories
+                'options_accessoires': accessories,
+                'nombre_loc_voiture' : rentalNumber
         }
         
         #This item manoeuver is to pass the dictionary to the user's page as an argument so we can add other parameters
