@@ -135,7 +135,7 @@ class MySpider(scrapy.Spider):
             isDrivey = True
 
         #Check if the reservation is instant
-        isInstant = response.xpath('//div[@class="cobalt-Pill__Icon"]').get()
+        isInstant = response.xpath('//span[@class="cobalt-Pill__Icon"]').get()
         if (isInstant == None):
             isInstant = False
         else :
