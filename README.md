@@ -103,6 +103,8 @@ conda activate Scrap
 and run the script 
 ```
 python run.py -places "Gare de Massy - Palaiseau" "Paris"
+# or
+python run.py -file res2 -places "Gare de Massy - Palaiseau" "Paris"
 ```
 if the script isn't excutable try 
 ```
