@@ -63,6 +63,7 @@ conda install -c conda-forge scrapy
 the install few packages in need 
 
 ```
+pip install scrapy
 pip install scrapy-fake-useragent
 pip install scrapy_splash
 pip install pymongo
